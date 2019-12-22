@@ -31,7 +31,7 @@ def create_app(config_name='default'):
     config[config_name].init_app(app)
 
     # init mongodb connection
-    mongo.init_app(app, uri='mongodb://localhost:27017/devlearnflask')
+    mongo.init_app(app, uri=config[config_name].MONGO_URI)
 
     # attach mongo collections to models
     User.init_db(mongo.db.users)

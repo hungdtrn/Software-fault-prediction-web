@@ -1,4 +1,5 @@
 import bcrypt
+from bson import ObjectId
 
 from .basemodel import BaseModel
 
@@ -37,7 +38,7 @@ class User(BaseModel):
                     "type": "string"
                 }
             },
-            "required": ["username", "salt", "hash"],
+            "required": ["username", "salt", "hash", "roleId"],
             "additionalProperties": False
         }
 
@@ -81,7 +82,7 @@ class User(BaseModel):
 
         user = {
             'username': data['username'],
-            'roleId': data['roleId'],
+            'roleId': ObjectId(data['roleId']),
             'hash': hash_.decode(),
             'salt': salt.decode()
         }

@@ -13,10 +13,9 @@ def find_users():
     result = user.find()
     
     return jsonify({
-        'status': 200,
         'err': None,
         'result': result
-    })
+    }), 200
 
 
 @api.route("/users/<ObjectId:id>", methods=["GET"])
@@ -24,10 +23,9 @@ def find_user_by_id(id):
     result = user.find_one({"_id": id})
     
     return jsonify({
-        'status': 200,
         'err': None,
         'result': result
-    })
+    }), 200
 
 
 @api.route("/login", methods=["POST"])
@@ -43,10 +41,9 @@ def login():
         err = str(e)
 
     return jsonify({
-        "status": status,
         "err": err,
         "result": result
-    })
+    }), status
 
 
 @api.route("/register", methods=["POST"])
@@ -64,17 +61,15 @@ def register():
         })
 
         return jsonify({
-            "status": 201,
             "err": None,
             "result": rs
-        })
+        }), 201
 
     except Exception as e:
         return jsonify({
-            "status": 400,
             "err": str(e),
             "result": None
-        })
+        }), 400
 
 
 

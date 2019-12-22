@@ -1,40 +1,33 @@
+import json
 from app.models.role import Role
 from app.models.user import User
 
-def init_database():
+def find_or_create_role(role_name):
     # create user role and admin role
+    model = Role()
 
-    role = Role()
-    user_role = role.find_one({
-        "name": "user"
-    })
-    admin_role = role.find_one({
-        "name": "admin"
-    })
+    role = model.find_one({"name": role_name})
 
-    if user_role is None or admin_role is None:
-        user_role = role.create({
-            "name": "user"
-        })
+    if role is None:
+        roleId = model.create({"name": role_name}).inserted_id
+        role = model.find_one({"_id": roleId})
 
-        admin_role = role.create({
-            "name": "admin"
-        })
 
-        admin_role_id = str(admin_role.inserted_id)
-    else:
-        admin_role_id = str(admin_role['_id'])
-
-    user = User()
-    admin = user.find_one({
-        "username": "admin"
-    })
-
-    if admin is None:
-        user.create({
-            "username": "admin",
-            "password": "admin",
-            "roleId": admin_role_id
-        })
-
+    return role
     
+def create_users(username, password, role_name):
+    user_model = User()
+
+    role = find_or_create_role(role_name)
+    
+    user = user_model.find_one({"username": username})
+    if user is None:
+        userId = user_model.create({
+            "username": username,
+            "password": password,
+            "roleId": str(role["_id"])    
+        })
+
+        user = user_model.find_one({"_id": userId})
+
+    return user

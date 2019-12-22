@@ -1,9 +1,17 @@
 from abc import ABC, abstractmethod
 
+from bson import ObjectId
 import jsonschema
+from jsonschema import validators, Draft7Validator
 from jsonschema.exceptions import ValidationError
 from jsonschema.exceptions import SchemaError
 
+def is_string_objectid(checker, instance):
+    return (Draft7Validator.TYPE_CHECKER.is_type(instance, "string") or
+            isinstance(instance, ObjectId))
+
+type_checker = Draft7Validator.TYPE_CHECKER.redefine("string", is_string_objectid)
+CustomValidator = validators.extend(Draft7Validator, type_checker=type_checker)
 
 class BaseModel(ABC):
     @property
@@ -18,7 +26,7 @@ class BaseModel(ABC):
 
     def validate(self, data):
         try:
-            jsonschema.validate(data, self.schema)
+            jsonschema.validate(data, self.schema, cls=CustomValidator)
         except ValidationError as e:
             return e, None
         except SchemaError as e:

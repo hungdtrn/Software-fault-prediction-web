@@ -1,5 +1,5 @@
 from flask import Blueprint
 
-api = Blueprint("routes", __name__)
+api = Blueprint("api", __name__, url_prefix='/api')
 
 from . import user, role, model, files, project
