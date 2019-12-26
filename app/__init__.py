@@ -7,8 +7,9 @@ from flask import Flask
 from flask_pymongo import PyMongo
 from flask import Blueprint
 
+from .models import init_db, ensure_unique
 from .config import config
-from .models import User, Role
+from .ml import MachineLearning
 
 mongo = PyMongo()
 
@@ -34,11 +35,17 @@ def create_app(config_name='default'):
     mongo.init_app(app, uri=config[config_name].MONGO_URI)
 
     # attach mongo collections to models
-    User.init_db(mongo.db.users)
-    Role.init_db(mongo.db.roles)
+    init_db(mongo.db)
 
-    from .controllers import api
-    app.register_blueprint(api)
+    # setup machine learning environments
+    MachineLearning.intialize(app.config)
+
+    # add unique constrains to properties
+    ensure_unique()
+
+    from .controllers import api_blueprint , auth_blueprint
+    app.register_blueprint(auth_blueprint, url_prefix="/auth")
+    app.register_blueprint(api_blueprint, url_prefix="/api")
 
     app.json_encoder = JSONEncoder
     return app

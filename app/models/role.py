@@ -27,3 +27,11 @@ class Role(BaseModel):
     @staticmethod
     def init_db(adapter):
         Role.dbadapter = adapter
+
+    @staticmethod
+    def ensure_unique_properties():
+        # Ensure unique properties
+        try:
+            Role.dbadapter.create_index("name", unique=True)
+        except Exception as e:
+            print("Warning in ensuring unique user properties: ", str(e))

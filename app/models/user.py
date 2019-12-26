@@ -1,4 +1,8 @@
+import datetime
+
+from flask import current_app as app
 import bcrypt
+import jwt
 from bson import ObjectId
 
 from .basemodel import BaseModel
@@ -50,6 +54,15 @@ class User(BaseModel):
     def init_db(adapter):
         User.dbadapter = adapter
 
+    @staticmethod
+    def ensure_unique_properties():
+        # Ensure unique properties
+        try:
+            User.dbadapter.create_index("username", unique=True)
+        except Exception as e:
+            print("Warning in ensuring unique user properties: ", str(e))
+
+
     def find(self, query=None):
         users = super().find(query)
         for u in users:
@@ -77,6 +90,12 @@ class User(BaseModel):
         return user
 
     def create(self, data):
+        """
+        Create new user record
+        :param data|object
+        :return: userId|ObjectId
+        """
+
         salt = bcrypt.gensalt()
         hash_ = bcrypt.hashpw(data['password'].encode(), salt)
 
@@ -87,4 +106,42 @@ class User(BaseModel):
             'salt': salt.decode()
         }
 
-        return super(User, self).create(user).inserted_id
+        return super(User, self).create(user)
+
+    def encode_auth_token(self, user):
+        """Generate auth token
+        :param user|dict
+        :param exp|number
+        :param secret|string
+        :return: token|string
+        """
+
+        try:
+            payload  = {
+                "exp": datetime.datetime.now() + datetime.timedelta(seconds=app.config["TOKEN_EXP"]),
+                "iat": datetime.datetime.utcnow(),
+                "_id": str(user["_id"]),
+                "roleId": str(user["roleId"])
+            }
+
+            return jwt.encode(
+                payload,
+                app.config["SECRET_KEY"],
+                algorithm="HS256"
+            )
+        except Exception as e:
+            raise e
+
+    def decode_auth_token(self, token):
+        """
+        Decodes the auth token
+        """
+        try:
+            payload = jwt.decode(token, app.config["SECRET_KEY"])
+            return payload
+        except jwt.ExpiredSignature as e:
+            raise e
+        except jwt.InvalidTokenError as e:
+            raise e
+        except Exception as e:
+            raise e

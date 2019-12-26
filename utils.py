@@ -1,4 +1,8 @@
+import sys
+import os
+
 import json
+
 from app.models.role import Role
 from app.models.user import User
 
@@ -26,7 +30,7 @@ def create_users(username, password, role_name):
             "username": username,
             "password": password,
             "roleId": str(role["_id"])    
-        })
+        }).inserted_id
 
         user = user_model.find_one({"_id": userId})
 

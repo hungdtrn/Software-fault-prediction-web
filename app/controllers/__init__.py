@@ -1,5 +1,2 @@
-from flask import Blueprint
-
-api = Blueprint("api", __name__, url_prefix='/api')
-
-from . import user, role, model, files, project
+from .api import api as api_blueprint
+from .auth import auth as auth_blueprint

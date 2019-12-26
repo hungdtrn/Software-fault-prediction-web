@@ -44,6 +44,10 @@ class BaseModel(ABC):
         return result       
 
     def find_one(self, query):
+        if "_id" in query:
+            if not isinstance(query["_id"], ObjectId):
+                query["_id"] = ObjectId(query["_id"])
+                
         return self.adapter.find_one(query)        
 
     def create(self, data):
@@ -56,7 +60,16 @@ class BaseModel(ABC):
             return self.adapter.insert_one(data)
 
     def update(self, selector, kudo):
-        return self.adapter.update(selector, kudo)
+        set_dict = {}
+        for key, value in kudo.items():
+            if key == "_id":
+                continue
+            
+            set_dict[key] = value
+        
+        return self.adapter.update_one(selector, {
+            "$set": set_dict
+        }, upsert=False)
 
     def delete(self, selector):
         return self.adapter.delete(selector)
