@@ -18,7 +18,8 @@ def login():
     
     try:
         login_user = user.validate_user(request_form['username'], request_form['password'])
-        result = user.encode_auth_token(login_user).decode()
+        user_role = role.find_one({"_id": login_user["roleId"]})
+        result = user.encode_auth_token({"_id": login_user["_id"], "role": user_role["name"]}).decode()
     except Exception as e:
         status = 400
         err = str(e)
@@ -56,7 +57,7 @@ def register():
         }).inserted_id
 
         access_token = user.encode_auth_token({'_id': createdId, 
-                                               'roleId': user_role['_id']
+                                               'role': "user"
                                               })
 
         return jsonify({

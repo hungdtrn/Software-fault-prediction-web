@@ -30,17 +30,17 @@ class AuthTestCase(unittest.TestCase):
         self.client.post("/api/projects",
                         data=json.dumps(dict(name="TestProject1",
                                              github="https://github.com/user/project")),
-                        headers=self.get_api_headers(user_model.encode_auth_token(self.user1)))
+                        headers=self.get_api_headers(user_model.encode_auth_token({...self.user1, "role": "user"})))
         self.client.post("/api/projects",
                         data=json.dumps(dict(name="TestProject2",
                                              github="https://github.com/user/project")),
-                        headers=self.get_api_headers(user_model.encode_auth_token(self.user1)))
+                        headers=self.get_api_headers(user_model.encode_auth_token({...self.user1, "role": "user"})))
 
         # create some projects for user2
         self.client.post("/api/projects",
                         data=json.dumps(dict(name="TestProject1",
                                              github="https://github.com/user/project")),
-                        headers=self.get_api_headers(user_model.encode_auth_token(self.user2)))
+                        headers=self.get_api_headers(user_model.encode_auth_token({...self.user2, "role": "user"})))
 
     def get_api_headers(self, access_token=None):
         headers = {

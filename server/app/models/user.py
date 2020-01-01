@@ -121,7 +121,7 @@ class User(BaseModel):
                 "exp": datetime.datetime.now() + datetime.timedelta(seconds=app.config["TOKEN_EXP"]),
                 "iat": datetime.datetime.utcnow(),
                 "_id": str(user["_id"]),
-                "roleId": str(user["roleId"])
+                "role": str(user["role"])
             }
 
             return jwt.encode(

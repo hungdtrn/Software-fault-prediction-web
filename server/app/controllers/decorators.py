@@ -15,7 +15,7 @@ def authorization_required(f):
                 decoded_token = user_model.decode_auth_token(token)
                 g.current_user = {
                     "_id": decoded_token["_id"],
-                    "roleId": decoded_token["roleId"]
+                    "role": decoded_token["role"]
                 }
                 return f(*args, **kwargs)
             except Exception as e:
@@ -40,8 +40,8 @@ def admin_required(f):
                 "result": None
             }), 400
         else:
-            role = role_model.find_one({"_id": g.current_user["roleId"]})
-            if role is None or role["name"] != "admin":
+            role = g.current_user["role"]
+            if role is None or role != "admin":
                 return jsonify({
                     "msg": "Not allowed.",
                     "result": None

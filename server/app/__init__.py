@@ -5,6 +5,7 @@ from bson.objectid import ObjectId
 
 from flask import Flask
 from flask_pymongo import PyMongo
+from flask_cors import CORS
 from flask import Blueprint
 
 from .models import init_db, ensure_unique
@@ -30,6 +31,8 @@ def create_app(config_name='default'):
     app = Flask(__name__)
     app.config.from_object(config[config_name])
     config[config_name].init_app(app)
+
+    CORS(app)
 
     # init mongodb connection
     mongo.init_app(app, uri=config[config_name].MONGO_URI)

@@ -100,6 +100,9 @@ class File(BaseModel):
                 "mlmodel": {
                     "type": "string"
                 },
+                "status": {
+                    "type": "string",
+                }
             },
             "required": ["projectId", "name"],
             "additionalProperties": False

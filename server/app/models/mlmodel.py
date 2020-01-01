@@ -57,5 +57,6 @@ class MLModel(BaseModel):
     def validate_model(self, model):
         try:
             return MachineLearning.test_model(model)
-        except Exception:
+        except Exception as e:
+            print("Error in valdating model: ", e)
             return False

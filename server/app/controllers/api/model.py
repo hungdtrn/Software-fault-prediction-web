@@ -16,7 +16,7 @@ ml = MLModel()
 @admin_required
 def create_model():
     request_form = request.form
-
+    print(request_form)
     if request_form is None or len(request_form) == 0:
         request_form = request.get_json()
 
@@ -63,3 +63,17 @@ def create_model():
             "result": None
         }), 400
 
+@api.route("/models", methods=["GET"])
+@authorization_required
+def find_model():
+    try:
+        return jsonify({
+            "msg": None,
+            "result": ml.find({})
+        }), 200
+    except Exception as e:
+        return jsonify({
+            "msg": str(e),
+            "result": None
+        })
+        

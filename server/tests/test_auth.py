@@ -37,7 +37,7 @@ class AuthTestCase(unittest.TestCase):
 
     def test_encode_auth_token(self):
         user = self.user_model.find_one({"username": "user"})
-        auth_token = self.user_model.encode_auth_token(user)
+        auth_token = self.user_model.encode_auth_token({"_id": user["_id"], "role": "user"})
         self.assertTrue(isinstance(auth_token, bytes))
         
         decoded_token = self.user_model.decode_auth_token(auth_token)
@@ -88,7 +88,7 @@ class AuthTestCase(unittest.TestCase):
         access_token = response_msg['result']
         decoded_token = self.user_model.decode_auth_token(access_token.encode())
         self.assertTrue("_id" in decoded_token)
-        self.assertTrue("roleId" in decoded_token)
+        self.assertTrue("role" in decoded_token)
 
     # def test_access_token(self):
     #     pass
@@ -109,7 +109,7 @@ class AuthTestCase(unittest.TestCase):
         
         decoded_token = self.user_model.decode_auth_token(data["result"].encode())
         self.assertTrue("_id" in decoded_token)
-        self.assertTrue("roleId" in decoded_token)
+        self.assertTrue("role" in decoded_token)
 
     def test_register_with_duplicated_username(self):
         response = self.client.post("/auth/register",

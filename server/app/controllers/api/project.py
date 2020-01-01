@@ -11,6 +11,7 @@ from ..decorators import authorization_required
 
 
 project_model = Project()
+file_model = File()
 
 def create_file(projectId, f, file_model):
     if f["childs"] is None:
@@ -126,8 +127,22 @@ def find_project():
 
 @api.route("/projects/<ObjectId:id>", methods=["GET"])
 @authorization_required
-def find_project_by_id():
-    return jsonify({
-        "msg": None,
-        "result": project_model.find_one({"_id": id, "userId": g.current_user["_id"]})
-    })
+def find_project_by_id(id):
+    try:
+        selected_project = project_model.find_one({"_id": id, "userId": g.current_user["_id"]})
+        files = []
+
+        for fid in selected_project["files"]:
+            files.append(file_model.find_one({"_id": fid}))
+        
+        selected_project["files"] = files
+
+        return jsonify({
+            "msg": None,
+            "result": selected_project
+        }), 200
+    except Exception as e:
+        return jsonify({
+            "msg": str(e),
+            "result": None,
+        }), 400

@@ -1,10 +1,12 @@
 import os
 from flask import request, jsonify
+from bson import ObjectId
 
 from app.models.file import File
 from . import api
+from ..decorators import authorization_required
 
-# model = File()
+model = File()
 
 # @api.route("/files", methods=["GET"])
 # def find_roles():
@@ -18,13 +20,20 @@ from . import api
 #     })
 
 
-# @api.route("/roles/<ObjectId:id>", methods=["GET"])
-# def find_role_by_id(id):
-#     role = model.find_one({"_id": id})
+@api.route("/files/<ObjectId:id>", methods=["GET"])
+@authorization_required
+def find_file_by_id(id):
+    file = model.find_one({"_id": id, "projectId": ObjectId(request.args.get("projectId"))})
+    childs = []
 
-#     return jsonify({
-#         'status': 200,
-#         'msg': 'request ok',
-#         'result': role
-#     })
+    if "childs" in file:
+        for sf in file["childs"]:
+            childs.append(model.find_one({"_id": sf}))
+
+        file["childs"] = childs
+
+    return jsonify({
+        'msg': 'request ok',
+        'result': file
+    }), 200
 
