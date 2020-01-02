@@ -32,9 +32,7 @@ class LoginForm extends React.Component {
     }
     
     clearError = () => {
-        this.setState({
-            error: null
-        })
+        this.props.clearError()
     }
 
     render() {

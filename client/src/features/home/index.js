@@ -15,7 +15,7 @@ class Home extends React.Component {
             console.log(userRole)
             if (userRole == "user") {
                 return <Redirect to="/projects"/>
-            } else if (userRole.role == "admin") {
+            } else if (userRole == "admin") {
                 return <Redirect to="/models"/>
             }
 

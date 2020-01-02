@@ -17,6 +17,7 @@ const FileDetail = connect(
                 ...props.selectedFile,
                 ...state.file.selectedFile
             },
+            updatedFile: state.file.updatedFile,
             models: state.model.models
         }
     },

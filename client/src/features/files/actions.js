@@ -4,6 +4,9 @@ export const ACTIONTYPES = {
     "FIND_BY_ID_BEGIN": "FILE_FIND_BY_ID_BEGIN",
     "FIND_BY_ID_SUCCESS": "FILE_FIND_BY_ID_SUCCESS",
     "FIND_BY_ID_ERROR": "FILE_FIND_BY_ID_ERROR",
+    "PREDICT_SUCCESS": "FILE_PREDICT_SUCCESS",
+    "PREDICT_ERROR": "FILE_PREDICT_ERROR",
+
 };
 
 export const requestFindById = (id, projectId) => {

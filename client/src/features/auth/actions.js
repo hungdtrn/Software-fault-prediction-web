@@ -35,3 +35,9 @@ export const requestRegister = ({ username, email, password }) => {
         }
     }
 }
+
+export const clearError = () => {
+    return {
+        type: ACTIONTYPES.CLEAR_ERROR
+    }
+}

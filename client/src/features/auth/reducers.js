@@ -17,37 +17,32 @@ const authReducer = (state, action) => {
             } else {
                 sessionStorage.setItem("accessToken", accessToken)
             }
-            return {
-                ...state,
+            return Object.assign({}, state, {
                 loading: false,
                 accessToken: action.payload.accessToken,
                 error: null
-            }
+            })
         }
         case ACTIONTYPES.LOGIN_ERROR:
-            return {
-                ...state,
+            return Object.assign({}, state, {
                 loading: false,
                 error: action.payload.error
-            }
+            })
         case ACTIONTYPES.REGISTER_SUCCESS:
-            return {
-                ...state,
+            return Object.assign({}, state, {
                 loading: false,
                 accessToken: action.payload.accessToken,
                 error: null
-            }
+            })
         case ACTIONTYPES.REGISTER_ERROR:
-            return {
-                ...state,
+            return Object.assign({}, state, {
                 loading: false,
                 error: action.payload.error
-            }
+            })
         case ACTIONTYPES.CLEAR_ERROR:
-            return {
-                ...state,
+            return Object.assign({}, state, {
                 error: null
-            }
+            })
         default: 
             return initialState
         

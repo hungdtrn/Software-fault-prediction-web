@@ -3,13 +3,14 @@ import { connect } from 'react-redux'
 import StaticLoginForm from './components/loginForm'
 import StaticRegisterForm from './components/registerForm'
 
-import { requestLogin, requestRegister } from './actions'
+import { requestLogin, requestRegister, clearError } from './actions'
 import reducers from './reducers'
 import sagas from './sagas'
 
 const mapDispatchToLogin = (dispatch, props) => {
     return {
         login: (e) => dispatch(requestLogin(e)),
+        clearError: () => dispatch(clearError())
     }
 }
 

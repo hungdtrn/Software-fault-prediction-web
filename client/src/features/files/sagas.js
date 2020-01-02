@@ -34,6 +34,34 @@ function *findById(action) {
     }
 }
 
+function *predictById(action) {
+    try {
+        const { responseJson, timeout } = yield race({
+            responseJson: call(apis.predict, action.payload.id, action.payload.modelId),
+            timeout: delay(CONFIG.REQUEST_TIMEOUT)
+        })
+        if (timeout) {
+            yield put({
+                type: ACTIONTYPES.PREDICT_ERROR,
+                error: "Timeout"
+            })
+        } else if (responseJson.result) {
+            yield put({ type: ACTIONTYPES.PREDICT_SUCCESS, payload: {
+                updatedFile: responseJson.result
+            }})
+        } else {
+            yield put({ type: ACTIONTYPES.PREDICT_ERROR, payload: {
+                error: responseJson.msg
+            } })
+        }
+    } catch(err) {
+        yield put({ type: ACTIONTYPES.PREDICT_ERROR, payload: {
+            error: err
+        }})
+    }
+}
+
 export default function* fileSaga() {
     yield takeEvery(ACTIONTYPES.REQUEST_FIND_BY_ID, findById)
+    yield takeEvery(ACTIONTYPES.REQUEST_PREDICT_BY_ID, predictById)
 }

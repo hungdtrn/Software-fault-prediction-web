@@ -45,7 +45,8 @@ def create_model():
 
         # Save model
         model_name = str(time.time()) + "_" + model_file.filename 
-        model_file.save(os.path.join(current_app.config["SKLEARN_FOLDER"], model_name))
+        with open(os.path.join(current_app.config["SKLEARN_FOLDER"], model_name), "wb") as f:
+            pickle.dump(model, f)
 
         created_id = ml.create({
             "name": request_form["name"],

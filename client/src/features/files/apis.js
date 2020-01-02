@@ -17,6 +17,25 @@ async function findById(fileId, projectId) {
     return await response.json()
 }
 
+async function predict(fileId, modelId) {
+    const token = getAccessToken()
+    const response = await fetch(`${FILE_API}/${fileId}/predict`, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token 
+        }, 
+        body: JSON.stringify({
+            modelId: modelId
+        })
+    })
+
+    return await response.json()
+}
+
 export default {
     findById,
+    predict
 }
+

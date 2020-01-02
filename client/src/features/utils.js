@@ -35,6 +35,11 @@ export const getAccessToken = () => {
     return accessToken
 }
 
+export const clearAccessToken = () => {
+    localStorage.clear();
+    sessionStorage.clear();
+}
+
 export const decodeToken = (token) => {
     return jwt.decode(token)
 }

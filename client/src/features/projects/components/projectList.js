@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Row, Col, Button, Typography } from 'antd'
+import { Card, Row, Col, Button, Typography, Spin } from 'antd'
 import { Link, useRouteMatch, Switch, Route } from 'react-router-dom'
 
 const { Title } = Typography
@@ -39,21 +39,32 @@ const FunctionProjectList = ({ projects }) => {
                         makeCardData(projects, num_col).map((r, id) => {
                             return (
                                 <div>
-                                    <Row gutter={16}>
+                                    <Row gutter={16} style={{"marginBottom": "10px"}}>
                                         {
                                             r.map((c) => {
                                                 return (
                                                     <Col key={c._id} span={12}>
-                                                        <Link to={`${url}/${c._id}`}>
-                                                            <Card hoverable title={c.name} bordered={false}>
-                                                                <p className="truncate">
-                                                                    {c.description}
-                                                                </p>
-                                                                <p>
-                                                                    {c.github}
-                                                                </p>
-                                                            </Card>
-                                                        </Link>
+                                                        {
+                                                            (c.status == "done") ? (
+                                                                <Link to={`${url}/${c._id}`}>
+                                                                    <Card hoverable title={c.name} bordered={false}>
+                                                                        <p className="truncate">
+                                                                            {c.description}
+                                                                        </p>
+                                                                        <p>
+                                                                            {c.github}
+                                                                        </p>
+                                                                    </Card>
+                                                                </Link>
+                                                            ) : <Card hoverable title={`${c.name} (updating)`} bordered={false} loading={true}>
+                                                                    <p className="truncate">
+                                                                        {c.description}
+                                                                    </p>
+                                                                    <p>
+                                                                        {c.github}
+                                                                    </p>
+                                                                </Card>
+                                                        }
                                                     </Col>
                                                 )
                                             })

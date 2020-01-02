@@ -27,11 +27,16 @@ class File extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        this.setState({
-            error: props.error,
-            loading: props.loading,
-            selectedFile: props.selectedFile,
-        })
+        console.log(props)
+        if (props.updatedFile) {
+            props.history.goBack();
+        } else {
+            this.setState({
+                error: props.error,
+                loading: props.loading,
+                selectedFile: props.selectedFile,
+            })    
+        }
     }
 
     togglePredicting() {
@@ -55,10 +60,20 @@ class File extends React.Component {
 
     render() {
         const { selectedFile, models } = this.props
-
-        if (selectedFile.hasOwnProperty("metrics") && selectedFile.metrics.length > 0) {
+        const { loading, error } = this.state
+        let showError = (error) ? true : false
+        if (loading) {
+            return <Loading visible={loading}/>
+        }
+        else if (selectedFile.hasOwnProperty("metrics") && selectedFile.metrics.length > 0) {
             return (
                 <div>
+                    <ErrorMessage 
+                        visible={showError}
+                        error={error}
+                        onCancel={(e) => this.clearError()}
+                        onOk={(e) => this.clearError()}
+                    />
                     <Row>
                         <Col span={8}>
                             <Title level={2}>{selectedFile.name}</Title>

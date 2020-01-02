@@ -1,5 +1,6 @@
 import React from 'react'
 import { Form, Input, Button } from 'antd'
+import { Redirect } from 'react-router-dom'
 import  { Loading, ErrorMessage } from '../../utils'
 
 class ProjectForm extends React.Component {
@@ -31,7 +32,8 @@ class ProjectForm extends React.Component {
     componentWillReceiveProps = (props) => {
         this.setState({
             error: props.error,
-            loading: props.loading
+            loading: props.loading,
+            projectId: props.projectId
         })
     }
 
@@ -46,11 +48,11 @@ class ProjectForm extends React.Component {
     
     render() {
         const { getFieldDecorator } = this.props.form
-        const { loading, error } = this.state
+        const { loading, error, projectId } = this.state
         let showError = (error) ? true : false
 
         return (
-            <div>
+            (!projectId) ? (<div>
                 <Loading visible={loading}/>
                 <ErrorMessage 
                     visible={showError}
@@ -90,7 +92,10 @@ class ProjectForm extends React.Component {
                         <Button htmlType="submit">Create</Button>
                     </Form.Item>
                 </Form>
-            </div>
+            </div>)
+            : (<Redirect to="/projects"/>
+
+            )
         )
     }
 }

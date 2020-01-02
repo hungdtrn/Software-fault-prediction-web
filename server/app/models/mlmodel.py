@@ -60,3 +60,24 @@ class MLModel(BaseModel):
         except Exception as e:
             print("Error in valdating model: ", e)
             return False
+
+    def predict(self, x, model):
+        processed_x = MachineLearning.PREPROCESSOR.transform_x(self.json_array_to_data(x))
+        y = model.predict(processed_x)
+        result = x.copy()
+        for i in range(len(result)):
+            result[i]["bug"] = y[i].item()
+
+        return result
+
+    def json_array_to_data(self, metricsList):
+        data = []
+        for metrics in metricsList:
+            row = []
+            for y in MachineLearning.METRIC_ORDERS:
+                row.append(metrics[y])
+            
+            data.append(row)
+
+        return pandas.DataFrame(data, columns=MachineLearning.METRIC_ORDERS)
+            
