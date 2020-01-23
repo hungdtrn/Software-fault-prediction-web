@@ -31,7 +31,9 @@ const mapStateToLogin = (state, props) => {
 const mapStateToRegister = (state, props) => {
     return {
         loading: state.auth.loading,
-        error: state.auth.error
+        error: state.auth.error,
+        accessToken: state.auth.accessToken,
+
     }
 }
 

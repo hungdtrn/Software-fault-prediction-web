@@ -44,8 +44,28 @@ class App extends React.Component {
                                         <RegisterForm />
                                     </div>
                                 </Route>
+                                <Route exact path="/projects">
+                                        <ProjectList />
+                                    </Route>
+                                    <Route path="/projects/create">
+                                        <div style={{ "margin-top": "60px" }}>
+                                            <ProjectForm />
+                                        </div>
+                                    </Route>
+                                    <Route path="/projects/:projectId" component={ProjectDetail}/>
+                                    <Route exact path="/models">
+                                        <ModelList />
+                                    </Route>
+                                    <Route path="/models/create">
+                                        <div style={{ "margin-top": "60px" }}>
+                                            <ModelForm />
+                                        </div>
+                                    </Route>
+                                    <Route path="/models/:modelId" component={ModelDetail}/>
+                                    <Route path="/home" component={Home}/>
+                                    <Route exact path="/" component={Home}/>
                             </Switch>
-                            {
+                            {/* {
                             (accessToken) ? (
                                 <Switch>
                                     <Route exact path="/projects">
@@ -72,7 +92,7 @@ class App extends React.Component {
                             ) :
                             ( <Redirect to="/login"/>)
 
-                            }
+                            } */}
                         </Content>
                         <Footer></Footer>
                     </Layout>
