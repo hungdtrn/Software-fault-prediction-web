@@ -5,17 +5,41 @@ HINT: Always use functions for consistency, don't export plain objects
 
 import * as types from './types'
 
-const login = ({ username, password, remember }) => ({
-    type: types.LOGIN,
+const loginRequest = ({ user, remember }) => ({
+    type: types.LOGIN_REQUEST,
     payload: {
-        user: {
-            username,
-            password
-        },
+        user,
         remember
     }
 })
 
+const loginStart = () => ({
+    type: types.LOGIN_START
+})
+
+const loginError = ( errMsg ) => ({
+    type: types.LOGIN_ERROR,
+    payload: {
+        error: errMsg
+    }
+})
+
+const loginSuccess = ( accessToken, remember ) => ({
+    type: types.LOGIN_SUCCESS,
+    payload: {
+        accessToken,
+        remember
+    }
+})
+
+const clearError = () => ({
+    type: types.LOGIN_CLEAR_ERROR
+})
+
 export {
-    login
+    loginRequest,
+    loginStart,
+    loginError,
+    loginSuccess,
+    clearError
 }

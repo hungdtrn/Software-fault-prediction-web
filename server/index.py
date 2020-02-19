@@ -1,6 +1,7 @@
 import os
 
 from app import create_app, mongo
+
 import utils
 
 mode = os.getenv('FLASK_CONFIG') or 'default'

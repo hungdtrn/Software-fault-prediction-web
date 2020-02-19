@@ -3,12 +3,12 @@ from flask import request, jsonify
 
 from app.models import User
 from app.models import Role
-from . import auth
+from . import api
 
 user = User()
 role = Role()
 
-@auth.route("/login", methods=["POST"])
+@api.route("/auth/login", methods=["POST"])
 def login():
     status = 200
     err = None,
@@ -30,7 +30,7 @@ def login():
     }), status
 
 
-@auth.route("/register", methods=["POST"])
+@api.route("/auth/register", methods=["POST"])
 def register():
     # get request body
     request_form = request.get_json()

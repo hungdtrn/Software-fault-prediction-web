@@ -7,10 +7,10 @@ Optionally it exports the actions and types if they are needed in other ducks.
 
 */
 
-import reducer from './reducers'
+import { loginReducer } from './reducers'
 
 import * as loginSelectors from './selectors'
-import * as loginOperations from './operations'
+import loginOperations from './operations'
 import * as loginActions from './actions'
 import * as loginTypes from './types'
 
@@ -21,4 +21,4 @@ export {
     loginTypes
 };
 
-export default reducer;
+export default loginReducer;
