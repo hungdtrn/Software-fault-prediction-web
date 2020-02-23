@@ -1,5 +1,5 @@
 import { Redirect } from 'react-router-dom'
-import { Login, Register, Home, Project, Algorithm, AccountDetail } from '../views/pages';
+import { Login, Register, Home, Project, Algorithm, AccountDetail, NoMatch } from '../views/pages';
 import { withAuthentication } from '../views/enhancers'
 
 
@@ -33,7 +33,11 @@ const userRouters = [
         component: AccountDetail,
         name: "Account",
         icon: "user"
-    }
+    },
+    {
+        path: "*",
+        component: NoMatch,
+    },
 ]
 
 const adminRoutes = [
@@ -49,7 +53,11 @@ const adminRoutes = [
         component: AccountDetail,
         name: "Account",
         icon: "user"
-    }
+    },
+    {
+        path: "*",
+        component: NoMatch,
+    },
 ]
 
 export {

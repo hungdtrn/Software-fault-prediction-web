@@ -25,7 +25,7 @@ const AdminLayout = ( ) => {
         </Switch>
     )    
 
-    const siders = adminRoutes.map((route, i) => {
+    const siders = adminRoutes.filter(i => !(i.path) || i.path != "*").map((route, i) => {
         return {
             key: i.toString(),
             icon: route.icon,

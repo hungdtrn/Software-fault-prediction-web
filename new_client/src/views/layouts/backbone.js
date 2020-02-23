@@ -48,7 +48,7 @@ class BackboneLayout extends React.Component {
                             type={this.state.collapsed ? "menu-unfold" : "menu-fold"}
                             onClick={this.toggle} 
                         />
-                        {this.props.header}
+                        <span style={{ float: "right", marginRight: 24 }}>Logout</span>
                     </Header>
                     <Content 
                         style={{

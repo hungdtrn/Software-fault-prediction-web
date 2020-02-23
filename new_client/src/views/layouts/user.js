@@ -25,7 +25,7 @@ const UserLayout = ( ) => {
         </Switch>
     )    
 
-    const siders = userRouters.map((route, i) => {
+    const siders = userRouters.filter(i => !(i.path) || i.path != "*").map((route, i) => {
         return {
             key: i.toString(),
             icon: route.icon,
