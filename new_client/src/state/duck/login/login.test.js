@@ -31,7 +31,7 @@ const FAKELOGINRESPONE = {
 describe("Login Actions", () => {
     it("Should create an action to submit login form", () => {
         const expectedAction = {
-            type: loginTypes.LOGIN,
+            type: loginTypes.LOGIN_REQUEST,
             payload: userForm
         }
         expect(loginActions.loginRequest(userForm)).toEqual(expectedAction)
@@ -143,6 +143,7 @@ describe("Login operations (sagas)", () => {
 })
 
 describe("Login reducers", () => {
+
     it("Should return default state", () => {
         expect(loginReducer(undefined, {})).toEqual({
             loading: false,

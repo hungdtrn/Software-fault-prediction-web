@@ -5,46 +5,44 @@ Based on the state shape, multiple reducers might be defined in this file, combi
 
 */
 
-import { login, loginError, loginSuccess } from './actions'
-import * as LOGINTYPES from './types'
-import { setToken } from '../../utils/token'
+import { register, registerError, registerSuccess } from './actions'
+import * as REGISTERTYPES from './types'
 
 let initialState = {
     loading: false,
-    accessToken: null,
+    success: false,
     error: null,
 }
 
-const loginReducer = (state, action) => {
+const registerReducer = (state, action) => {
     switch (action.type) {
-        case LOGINTYPES.LOGIN_START: {
+        case REGISTERTYPES.REGISTER_START: {
             return Object.assign({}, state, {
                 loading: true,
-                accessToken: null,
+                success: false,
                 error: null
             })
         }
-        case LOGINTYPES.LOGIN_SUCCESS: {
-            const { accessToken, remember } = action.payload
+        case REGISTERTYPES.REGISTER_SUCCESS: {
+            const { accessToken } = action.payload
             
-            setToken(accessToken,remember)
 
             return Object.assign({}, state, {
                 error: null,
                 loading: false,
-                accessToken
+                success: true,
             })
         }
-        case LOGINTYPES.LOGIN_ERROR: {
+        case REGISTERTYPES.REGISTER_ERROR: {
             const { error } = action.payload
-
+            console.log(error)
             return Object.assign({}, state, {
                 error,
                 loading: false,
-                accessToken: null
+                success: false
             })
         }
-        case LOGINTYPES.LOGIN_CLEAR_ERROR: {
+        case REGISTERTYPES.REGISTER_CLEAR_ERROR: {
             return Object.assign({}, state, {
                 error: null
             })
@@ -55,5 +53,5 @@ const loginReducer = (state, action) => {
 }
 
 export {
-    loginReducer
+    registerReducer
 }

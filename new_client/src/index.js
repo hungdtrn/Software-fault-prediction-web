@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Provider as ReduxProvider } from "react-redux";
 
 import './index.css';
-import App from './views/layouts/app';
+import { General } from './views/layouts';
 import configureStore from './state/store'
 
 import * as serviceWorker from './serviceWorker';
@@ -14,7 +14,7 @@ const rootStore = configureStore({})
 const RootHtml = ( ) => (
     <ReduxProvider store={ rootStore }>
         <Router>
-            <App />
+            <General />
         </Router>
     </ReduxProvider>
 );

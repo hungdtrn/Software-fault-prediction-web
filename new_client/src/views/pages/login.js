@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import { connect } from "react-redux";
-
-import { Form, Input, Button, Icon, Checkbox } from 'antd';
+import { Row, Col, Form, Input, Button, Icon, Checkbox,  } from 'antd';
+import { Link } from 'react-router-dom'
 
 import { loginActions } from '../../state/duck/login'
 import { Spinner, Modal } from './components'
@@ -40,33 +40,36 @@ class LoginForm extends React.Component {
         const { loading, error, accessToken } = this.props
 
         return (
-            <div>
-                <Spinner visible={loading} title={ "Waiting to login" } />
-                <Modal 
-                    title={ "Login error" }
-                    visible={error != null} 
-                    content={error || ""} 
-                    handleOk={this.clearError} 
-                    handleCancel={this.clearError} />
-                
-                <Modal 
-                    title={ "Success" }
-                    visible={ accessToken != null }
-                    content={ "Success" }
-                    handleOk={() => {}}
-                    handleCancel={() => {}}
+            <Row type="flex" justify="center" align="middle" className="container">
+                <Col span={8}>
+                    <Spinner visible={loading} title={ "Waiting to login" } />
+                    <Modal 
+                            title={ "Login error" }
+                            visible={error != null} 
+                            content={error || ""} 
+                            handleOk={this.clearError} 
+                            handleCancel={this.clearError} />
+                        
+                    <Modal 
+                            title={ "Success" }
+                            visible={ accessToken != null }
+                            content={ "Success" }
+                            handleOk={() => {
+                                this.props.history.push("/")
+                            }}
+                            handleCancel={() => {
+                                this.props.history.push("/")
+                            }}
                     />
 
-                <Form onSubmit={this.handleSubmit} className={"center-form"}>
+                    <Form onSubmit={this.handleSubmit} className={"center-form"}>
                         <Form.Item>
                             {getFieldDecorator("username", {
                                 rules: [{ required: true, message: 'Please input your username!' }],
                             })(
                                 <Input 
-                                    prefix={<Icon type="user" style={{ 'color': 'rgba(0, 0, 0, .25)' }} />}
-                                    placeholder="Username"
+                                    prefix={<Icon type="user" style={{ 'color': 'rgba(0, 0, 0, .25)' }} />}                                    placeholder="Username"
                                 />,
-
                             )}
                         </Form.Item>
                         <Form.Item>
@@ -91,10 +94,11 @@ class LoginForm extends React.Component {
                             <Button type="primary" htmlType="submit" style={{ "width": "100%" }}>
                                 Login
                             </Button>
-                            Or <a href="/register">Register now!</a>
+                            Or <Link to="/register">Register</Link>
                         </Form.Item>
-                    </Form>
-            </div>
+                    </Form>     
+                </Col>
+            </Row>   
         )
     }
 }
