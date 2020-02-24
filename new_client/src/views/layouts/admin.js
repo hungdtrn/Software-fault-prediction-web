@@ -9,11 +9,11 @@ const AdminLayout = ( ) => {
         return el.default
     })
 
-    const routes = [...adminRoutes, {
+    const routes = [{
         path: "/",
         component: () => (<Redirect to={defaultComponent.path}/>),
-        exact: true
-    }]
+        exact: true,
+    }, ...adminRoutes,]
     
     const content =  (
         <Switch>

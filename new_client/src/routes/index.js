@@ -16,7 +16,7 @@ const generalRoutes = [
     },
     {
         path: "/",
-        component: withAuthentication(Home),
+        component: withAuthentication(Home)    
     },
 ]
 

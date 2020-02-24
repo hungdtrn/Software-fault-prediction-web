@@ -14,6 +14,11 @@ const getToken = () => {
     return token
 }
 
+const clearToken = () => {
+    localStorage.removeItem("accessToken")
+    sessionStorage.removeItem("accessToken")
+}
+
 const parseToken = (token) => {
     const mainContent = token.split(".")[1]
     const user = JSON.parse(atob(mainContent))
@@ -25,4 +30,5 @@ export {
     setToken,
     getToken,
     parseToken,
+    clearToken,
 }

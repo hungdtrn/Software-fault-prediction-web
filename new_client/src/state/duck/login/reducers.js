@@ -7,7 +7,7 @@ Based on the state shape, multiple reducers might be defined in this file, combi
 
 import { login, loginError, loginSuccess } from './actions'
 import * as LOGINTYPES from './types'
-import { setToken } from '../../utils/token'
+import { setToken, clearToken } from '../../utils/token'
 
 let initialState = {
     loading: false,
@@ -35,6 +35,13 @@ const loginReducer = (state, action) => {
                 accessToken
             })
         }
+
+        case LOGINTYPES.LOGOUT: {
+            clearToken()
+
+            return Object.assign({}, initialState)
+        }
+
         case LOGINTYPES.LOGIN_ERROR: {
             const { error } = action.payload
 

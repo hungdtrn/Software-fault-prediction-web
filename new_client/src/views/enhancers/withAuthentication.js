@@ -5,9 +5,8 @@ import { getToken } from '../../state/utils/token'
 
 
 export default function withAuthentication( WrappedComponent ) {
-    const accessToken = getToken()
-
     const wrappedAuthentication = ( props ) => {
+        const accessToken = getToken()
         if (!accessToken) {
             return <Redirect to="/login" />
         }

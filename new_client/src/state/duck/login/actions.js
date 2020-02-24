@@ -32,6 +32,10 @@ const loginSuccess = ( accessToken, remember ) => ({
     }
 })
 
+const logout = () => ({
+    type: types.LOGOUT
+})
+
 const clearError = () => ({
     type: types.LOGIN_CLEAR_ERROR
 })
@@ -41,5 +45,6 @@ export {
     loginStart,
     loginError,
     loginSuccess,
+    logout,
     clearError
 }

@@ -9,11 +9,11 @@ const UserLayout = ( ) => {
         return el.default
     })
 
-    const routes = [...userRouters, {
+    const routes = [{
         path: "/",
         component: () => (<Redirect to={defaultComponent.path}/>),
         exact: true
-    }]
+    }, ...userRouters]
     
     const content =  (
         <Switch>
@@ -34,7 +34,7 @@ const UserLayout = ( ) => {
         }
     })
 
-    return <BackboneLayout content={content} siders={siders}/>
+    return (<BackboneLayout content={content} siders={siders}/>)
 }
 
 export default UserLayout
