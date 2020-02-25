@@ -5,7 +5,6 @@ Based on the state shape, multiple reducers might be defined in this file, combi
 
 */
 
-import { register, registerError, registerSuccess } from './actions'
 import * as REGISTERTYPES from './types'
 
 let initialState = {

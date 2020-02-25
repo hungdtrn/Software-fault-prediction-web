@@ -1,27 +1,53 @@
 import { put, call, delay, race, select } from 'redux-saga/effects'
 
-import * as registerType from './types.js'
-import * as registerAction from './actions'
-import * as registerOperation from './operations'
-import * as registerApi from './apis'
-import { registerReducer } from './reducers'
+import * as projectType from './types.js'
+import * as projectAction from './actions'
+import * as projectOperation from './operations'
+import * as projectApi from './apis'
+import { projectReducer } from './reducers'
 import { CONFIG } from '../../globals'
 
 describe("Project actions", () => {
     it("Should create action to find all projects", () => {
-        expect(true).toEqual(false)
+        const expectedAction = {
+            type: projectType.FIND_ALL_REQUEST
+        }
+
+        expect(projectAction.findAllRequest()).toEqual(expectedAction)
     })
 
     it("Should create action to start find all process", () => {
-        expect(true).toEqual(false)
+        const expectedAction = {
+            type: projectType.FIND_ALL_START
+        }
+
+        expect(projectAction.findAllStart()).toEqual(expectedAction)
     })
 
     it("Should create action for find all success", () => {
-        expect(true).toEqual(false)
+        const projects = [{
+            "id": 1,
+            "name": "test"
+        }, {
+            "id": 2,
+            "name": "test2"
+        }]
+        expect(projectAction.findAllSuccess(projects)).toEqual({
+            type: projectType.FIND_ALL_SUCCESS,
+            payload: {
+                projects
+            }
+        })
     })
 
     it("Should create action for find all error", () => {
-        expect(true).toEqual(false)
+        const errorMsg = "Error"
+        expect(projectAction.findAllError(errorMsg)).toEqual({
+            type: projectType.FIND_ALL_ERROR,
+            payload: {
+                error: errorMsg
+            }
+        })
     })
 
     it("Should create action to find by id", () => {
