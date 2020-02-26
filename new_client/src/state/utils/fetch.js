@@ -1,10 +1,10 @@
 // import isomorphicFetch from "isomorphic-fetch";
 
 const BASEURL = "http://localhost:5000/api";
-export default ( url, method, body ) => {
+export default ( url, method, body, token ) => {
     const options = {
         method,
-        headers: requestHeaders( ),
+        headers: requestHeaders( token ),
         body: method !== "GET" ? JSON.stringify( body ) : null,
     };
 
@@ -23,9 +23,18 @@ function parseStatus( status, res ) {
     } );
 }
 
-function requestHeaders( ) {
-    return {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-    };
+
+function requestHeaders( token ) {
+    if (!token)
+        return {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        };
+    else {
+        return {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+        }
+    }
 }

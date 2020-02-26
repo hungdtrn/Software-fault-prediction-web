@@ -51,35 +51,122 @@ describe("Project actions", () => {
     })
 
     it("Should create action to find by id", () => {
-        expect(true).toEqual(false)
+        const id = "id"
+        expect(projectAction.findByIdRequest(id)).toEqual({
+            type: projectType.FIND_BY_ID_REQUEST,
+            payload: {
+                id
+            }
+        })
     })
 
     it("Should create action to start find by id process", () => {
-        expect(true).toEqual(false)
+        expect(projectAction.findByIdStart()).toEqual({
+            type: projectType.FIND_BY_ID_START
+        })
     })
 
     it("Should create action for find by id success", () => {
-        expect(true).toEqual(false)
+        const project = {
+            id: "id",
+            name: "test"
+        }
+
+        expect(projectAction.findByIdSuccess(project)).toEqual({
+            type: projectType.FIND_BY_ID_SUCCESS,
+            payload: {
+                currentProject: project
+            }
+        })
     })
 
     it("Should create action for find by id error", () => {
-        expect(true).toEqual(false)
+        const error = "error"
+
+        expect(projectAction.findByIdError(error)).toEqual({
+            type: projectType.FIND_BY_ID_ERROR,
+            payload: {
+                error
+            }
+        })
     })
 
     it("Should create action to create", () => {
-        expect(true).toEqual(false)
+        const project = {
+            "name": "test"
+        }
+
+        expect(projectAction.createRequest(project)).toEqual({
+            type: projectType.CREATE_REQUEST,
+            payload: {
+                project
+            }
+        })
     })
 
     it("Should create action to start create process", () => {
-        expect(true).toEqual(false)
+        expect(projectAction.createStart()).toEqual({
+            type: projectType.CREATE_START
+        })
     })
 
     it("Should create action for create success", () => {
-        expect(true).toEqual(false)
+        const project = {
+            "id": "test",
+            "name": "test"
+        }
+
+        expect(projectAction.createSuccess(project)).toEqual({
+            type: projectType.CREATE_SUCCESS,
+            payload: {
+                createdProject: project
+            }
+        })
     })
 
     it("Should create action for create error", () => {
-        expect(true).toEqual(false)
+        const error = "Error"
+
+        expect(projectAction.createError(error)).toEqual({
+            type: projectType.CREATE_ERROR,
+            payload: {
+                error
+            }
+        })
+    })
+
+    it("Should create action to delete", () => {
+        const id = "project id"
+        
+        expect(projectAction.deleteRequest(id)).toEqual({
+            type: projectType.DELETE_REQUEST,
+            payload: {
+                id
+            }
+        })
+    })
+
+    it("Should create action to start delete process", () => {
+        expect(projectAction.deleteStart()).toEqual({
+            type: projectType.DELETE_START,
+        })
+    })
+
+    it("Should create action for delete success", () => {
+        expect(projectAction.deleteSuccess()).toEqual({
+            type: projectType.DELETE_SUCCESS
+        })
+    })
+
+    it("Should create action for delete error", () => {
+        const error = "error"
+
+        expect(projectAction.deleteError(error)).toEqual({
+            type: projectType.DELETE_ERROR,
+            payload: {
+                error
+            }
+        })
     })
 
     it("Should create action to clear error", () => {
@@ -88,8 +175,31 @@ describe("Project actions", () => {
 })
 
 describe("Project operations (sagas)", () => {
+    it("Should start find all", () => {
+        const generator = projectOperation.findAll()
+        
+        expect(generator.next().value).toEqual(put(projectAction.findAllStart()))
+    })
+
     it("Should find all fail (connection)", () => {
-        expect(true).toEqual(false)
+        const generator = projectOperation.findAll()
+
+        // Call request start
+        generator.next()
+
+        // Find project
+        expect(generator.next().value).toEqual(race({
+            response: call(projectApi.findAll),
+            timeout: delay(CONFIG.REQUEST_TIMEOUT)
+        }))
+
+        // Should call error on timeout
+        let next = generator.next({
+            timeout: true
+        })
+
+        expect(next.value).toEqual(put(projectAction.findAllError("Timeout")))
+
     })
 
     it("Should find all fail (server)", () => {

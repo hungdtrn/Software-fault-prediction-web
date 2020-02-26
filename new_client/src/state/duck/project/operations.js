@@ -8,13 +8,34 @@ Complex operations involve returning a thunk that dispatches multiple actions in
 
 import { call, put, race, delay, takeEvery } from 'redux-saga/effects'
 
-import * as registerActions from './actions'
-import * as registerTypes from './types'
+import * as projectActions from './actions'
+import * as projectTypes from './types'
 import { CONFIG } from '../../globals'
 import * as apis from "./apis"
 
 function* findAll(action) {
-    return
+    try {
+        yield put(projectActions.findAllStart())
+
+        const { response, timeout } = yield race({
+            response: call(apis.findAll),
+            timeout: delay(CONFIG.REQUEST_TIMEOUT)
+        })
+
+        if (timeout) {
+            yield put(projectActions.findAllError("Timeout"))
+        } else if(response.result) {
+            yield put(projectActions.findAllSuccess(response.result))
+        } else {
+            yield put(projectActions.findAllError(response.msg))
+        }
+    } catch(err) {
+        if (err.hasOwnProperty("response")) {
+            yield put(loginActions.loginError(err.response.msg))
+        } else {
+            yield put(loginActions.loginError(err.toString()))
+        }
+    }
 }
 
 function* findById(action) {

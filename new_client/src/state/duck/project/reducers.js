@@ -7,10 +7,20 @@ Based on the state shape, multiple reducers might be defined in this file, combi
 
 import * as PROJECTTYPES from './types'
 
-const projectReducer = (state, action) => {
+const findReducer = (state, action) => {
+    return
+}
+
+const createReducer = (state, action) => {
+    return
+}
+
+const deleteReducer = (state, action) => {
     return
 }
 
 export {
-    projectReducer
+    findReducer,
+    createReducer,
+    deleteReducer
 }
