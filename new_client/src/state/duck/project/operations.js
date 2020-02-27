@@ -31,19 +31,61 @@ function* findAll(action) {
         }
     } catch(err) {
         if (err.hasOwnProperty("response")) {
-            yield put(loginActions.loginError(err.response.msg))
+            yield put(projectActions.findAllError(err.response.msg))
         } else {
-            yield put(loginActions.loginError(err.toString()))
+            yield put(projectActions.findAllError(err.toString()))
         }
     }
 }
 
 function* findById(action) {
-    return
+    try {
+        yield put(projectActions.findByIdStart())
+
+        const { response, timeout } = yield race({
+            response: call(apis.findById, action.payload.id),
+            timeout: delay(CONFIG.REQUEST_TIMEOUT)
+        })
+
+        if (timeout) {
+            yield put(projectActions.findByIdError("Timeout"))
+        } else if (response.result) {
+            yield put(projectActions.findByIdSuccess(response.result))
+        } else {
+            yield put(projectActions.findByIdError(response.msg))
+        }
+    } catch (err) {
+        if (err.hasOwnProperty("response")) {
+            yield put(projectActions.findByIdError(err.response.msg))
+        } else {
+            yield put(projectActions.findByIdError(err.toString()))
+        }
+    }
 }
 
 function* create(action) {
-    return
+    try {
+        yield put(projectActions.createStart())
+
+        const { response, timeout } = yield race({
+            response: call(apis.create, action.payload.project),
+            timeout: delay(CONFIG.REQUEST_TIMEOUT)
+        })
+
+        if (timeout) {
+            yield put(projectActions.createError("Timeout"))
+        } else if (response.result) {
+            yield put(projectActions.createSuccess(response.result))
+        } else {
+            yield put(projectActions.createError(response.msg))
+        }
+    } catch (err) {
+        if (err.hasOwnProperty("response")) {
+            yield put(projectActions.createError(err.response.msg))
+        } else {
+            yield put(projectActions.createError(err.toString()))
+        }
+    }
 }
 
 function* deleteById(action) {

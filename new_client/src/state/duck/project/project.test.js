@@ -203,35 +203,215 @@ describe("Project operations (sagas)", () => {
     })
 
     it("Should find all fail (server)", () => {
-        expect(true).toEqual(false)
+        const generator = projectOperation.findAll()
+        const serveError = "Error"        
+
+        // Call request start
+        generator.next()
+
+        // Find project
+        expect(generator.next().value).toEqual(race({
+            response: call(projectApi.findAll),
+            timeout: delay(CONFIG.REQUEST_TIMEOUT)
+        }))
+
+        // Should call error on timeout
+        let next = generator.next({
+            response: {
+                result: "",
+                msg: serveError
+            }
+        })
+
+        expect(next.value).toEqual(put(projectAction.findAllError(serveError)))
     })
 
     it("Should find all success", () => {
-        expect(true).toEqual(false)
+        const generator = projectOperation.findAll()
+        const serverResult = {
+            "id": 1,
+            "name": "project",
+        }        
+
+        // Call request start
+        generator.next()
+
+        // Find project
+        expect(generator.next().value).toEqual(race({
+            response: call(projectApi.findAll),
+            timeout: delay(CONFIG.REQUEST_TIMEOUT)
+        }))
+
+        // Should call error on timeout
+        let next = generator.next({
+            response: {
+                result: serverResult,
+                msg: null
+            }
+        })
+
+        expect(next.value).toEqual(put(projectAction.findAllSuccess(serverResult)))
+    })
+
+    it("Should start find by id", () => {
+        const id = "id"
+        const action = projectAction.findByIdRequest(id)
+        const generator = projectOperation.findById(action)
+        
+        expect(generator.next().value).toEqual(put(projectAction.findByIdStart()))
     })
 
     it("Should find by id fail (connection)", () => {
-        expect(true).toEqual(false)
+        const id = "id"
+        const action = projectAction.findByIdRequest(id)
+        const generator = projectOperation.findById(action)
+
+        generator.next()
+
+        // Find project by id
+        expect(generator.next().value).toEqual(race({
+            response: call(projectApi.findById, action.payload.id),
+            timeout: delay(CONFIG.REQUEST_TIMEOUT)
+        }))
+
+        let next = generator.next({
+            timeout: true
+        })
+
+        expect(next.value).toEqual(put(projectAction.findByIdError("Timeout")))
     })
 
     it("Should find by id fail (server)", () => {
-        expect(true).toEqual(false)
+        const id = "id"
+        const action = projectAction.findByIdRequest(id)
+        const generator = projectOperation.findById(action)
+        const error = "error"
+
+        generator.next()
+
+        // Find project by id
+        expect(generator.next().value).toEqual(race({
+            response: call(projectApi.findById, action.payload.id),
+            timeout: delay(CONFIG.REQUEST_TIMEOUT)
+        }))
+
+        let next = generator.next({
+            response: {
+                result: null,
+                msg: error
+            }
+        })
+
+        expect(next.value).toEqual(put(projectAction.findByIdError(error)))
     })
 
     it("Should find by id success", () => {
-        expect(true).toEqual(false)
+        const id = "id"
+        const action = projectAction.findByIdRequest(id)
+        const generator = projectOperation.findById(action)
+        const result = {
+            id: "id",
+            name: "name"
+        }
+
+        generator.next()
+
+        // Find project by id
+        expect(generator.next().value).toEqual(race({
+            response: call(projectApi.findById, action.payload.id),
+            timeout: delay(CONFIG.REQUEST_TIMEOUT)
+        }))
+
+        let next = generator.next({
+            response: {
+                result,
+                msg: null
+            }
+        })
+
+        expect(next.value).toEqual(put(projectAction.findByIdSuccess(result)))
+    })
+
+    it("Should start create", () => {
+        const projectForm = {
+            name: "test"
+        }
+        const createAction = projectAction.createRequest(projectForm)
+        const generator = projectOperation.create(createAction)
+        
+        expect(generator.next().value).toEqual(put(projectAction.createStart()))
     })
 
     it("Should create fail (connection)", () => {
-        expect(true).toEqual(false)
+        const projectForm = {
+            name: "test"
+        }
+        const createAction = projectAction.createRequest(projectForm)
+        const generator = projectOperation.create(createAction)
+
+        generator.next()
+
+        expect(generator.next().value).toEqual(race({
+            response: call(projectApi.create, createAction.payload.project),
+            timeout: delay(CONFIG.REQUEST_TIMEOUT)
+        }))
+
+        let next = generator.next({
+            timeout: true
+        })
+
+        expect(next.value).toEqual(put(projectAction.createError("Timeout")))
+
     })
 
     it("Should create fail (server)", () => {
-        expect(true).toEqual(false)
+        const projectForm = {
+            name: "test"
+        }
+        const error = "Error"
+        const createAction = projectAction.createRequest(projectForm)
+        const generator = projectOperation.create(createAction)
+
+        generator.next()
+
+        expect(generator.next().value).toEqual(race({
+            response: call(projectApi.create, createAction.payload.project),
+            timeout: delay(CONFIG.REQUEST_TIMEOUT)
+        }))
+
+        let next = generator.next({
+            response: {
+                result: null,
+                msg: error
+            }
+        })
+
+        expect(next.value).toEqual(put(projectAction.createError(error)))
     })
 
     it("Should create success", () => {
-        expect(true).toEqual(false)
+        const projectForm = {
+            name: "test"
+        }
+
+        const createAction = projectAction.createRequest(projectForm)
+        const generator = projectOperation.create(createAction)
+
+        generator.next()
+
+        expect(generator.next().value).toEqual(race({
+            response: call(projectApi.create, createAction.payload.project),
+            timeout: delay(CONFIG.REQUEST_TIMEOUT)
+        }))
+
+        let next = generator.next({
+            response: {
+                result: projectForm,
+                msg: null
+            }
+        })
+
+        expect(next.value).toEqual(put(projectAction.createSuccess(projectForm)))
     })
 
     it("Should delete fail (connection)", () => {
