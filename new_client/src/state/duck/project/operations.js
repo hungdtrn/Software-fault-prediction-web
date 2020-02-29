@@ -89,7 +89,28 @@ function* create(action) {
 }
 
 function* deleteById(action) {
-    return
+    try {
+        yield put(projectActions.deleteStart())
+
+        const { response, timeout } = yield race({
+            response: call(apis.deleteById, action.payload.id),
+            timeout: delay(CONFIG.REQUEST_TIMEOUT)
+        })
+
+        if (timeout) {
+            yield put(projectActions.deleteError("Timeout"))
+        } else if (response.result) {
+            yield put(projectActions.deleteSuccess())
+        } else {
+            yield put(projectActions.deleteError(response.msg))
+        }
+    } catch (err) {
+        if (err.hasOwnProperty("response")) {
+            yield put(projectActions.deleteError(err.response.msg))
+        } else {
+            yield put(projectActions.deleteError(err.toString()))
+        }
+    }
 }
 
 export default function* projectSage() {

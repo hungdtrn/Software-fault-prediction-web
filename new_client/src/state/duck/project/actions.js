@@ -52,6 +52,10 @@ const findByIdError = ( error ) => ({
     }
 })
 
+const clearFindError = ( ) => ({
+    type: types.CLEAR_FIND_ERROR
+})
+
 const createRequest = ( project ) => ({
     type: types.CREATE_REQUEST,
     payload: {
@@ -77,6 +81,10 @@ const createError = ( error ) => ({
     }
 })
 
+const clearCreateError = ( ) => ({
+    type: types.CLEAR_CREATE_ERROR
+})
+
 const deleteRequest = ( id ) => ({
     type: types.DELETE_REQUEST,
     payload: {
@@ -99,6 +107,10 @@ const deleteError = ( error ) => ({
     }
 })
 
+const clearDeleteError = ( ) => ({
+    type: types.CLEAR_DELETE_ERROR,
+})
+
 
 export {
     findAllRequest,
@@ -110,14 +122,18 @@ export {
     findByIdStart,
     findByIdSuccess,
     findByIdError,
+    
+    clearFindError,
 
     createRequest,
     createStart,
     createSuccess,
     createError,
+    clearCreateError,
 
     deleteRequest,
     deleteStart,
     deleteSuccess,
     deleteError,
+    clearDeleteError,
 }
