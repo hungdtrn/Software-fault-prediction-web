@@ -6,6 +6,7 @@ Based on the state shape, multiple reducers might be defined in this file, combi
 */
 
 import * as PROJECTTYPES from './types'
+import { combineReducers } from "redux";
 
 
 const initialFindState = {
@@ -62,7 +63,31 @@ const initialCreateState = {
     error: null
 }
 const createReducer = (state, action) => {
-    return
+    switch (action.type) {
+        case PROJECTTYPES.CREATE_START:
+            return Object.assign(initialCreateState, state, {
+                loading: true,
+                error: null,
+            })
+        case PROJECTTYPES.CREATE_ERROR:
+            return Object.assign(initialCreateState, state, {
+                loading: false,
+                success: false,
+                error: action.payload.error
+            })
+        case PROJECTTYPES.CREATE_SUCCESS:
+            return Object.assign(initialCreateState, state, {
+                loading: false,
+                success: true,
+                error: null
+            })
+        case PROJECTTYPES.CLEAR_CREATE_ERROR:
+            return Object.assign(initialDeleteState, state, {
+                error: null
+            })
+        default:
+            return initialCreateState
+    }
 }
 
 const initialDeleteState = {
@@ -71,11 +96,37 @@ const initialDeleteState = {
     error: null
 }
 const deleteReducer = (state, action) => {
-    return
+    switch (action.type) {
+        case PROJECTTYPES.DELETE_START:
+            return Object.assign(initialDeleteState, state, {
+                loading: true,
+                error: null
+            })
+        case PROJECTTYPES.DELETE_ERROR:
+            return Object.assign(initialDeleteState, state, {
+                loading: false,
+                success: false,
+                error: action.payload.error
+            })
+        case PROJECTTYPES.DELETE_SUCCESS:
+            return Object.assign(initialDeleteState, state, {
+                loading: false,
+                error: null,
+                success: true,
+            })
+        case PROJECTTYPES.CLEAR_DELETE_ERROR:
+            return Object.assign(initialDeleteState, state, {
+                error: null
+            })
+        default:
+            return initialDeleteState;
+    }
 }
 
-export {
-    findReducer,
-    createReducer,
-    deleteReducer
-}
+const reducer = combineReducers({
+    find: findReducer,
+    create: createReducer,
+    delete: deleteReducer
+})
+
+export default reducer

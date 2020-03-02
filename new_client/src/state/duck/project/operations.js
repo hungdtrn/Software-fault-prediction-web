@@ -114,7 +114,10 @@ function* deleteById(action) {
 }
 
 export default function* projectSage() {
-    return
+    yield takeEvery(projectTypes.FIND_ALL_REQUEST, findAll)
+    yield takeEvery(projectTypes.FIND_BY_ID_REQUEST, findById)
+    yield takeEvery(projectTypes.CREATE_REQUEST, create)
+    yield takeEvery(projectTypes.DELETE_REQUEST, deleteById)
 }
 
 export {

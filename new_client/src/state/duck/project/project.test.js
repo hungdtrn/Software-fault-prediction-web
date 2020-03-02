@@ -4,7 +4,7 @@ import * as projectType from './types.js'
 import * as projectAction from './actions'
 import * as projectOperation from './operations'
 import * as projectApi from './apis'
-import { findReducer, createReducer, deleteReducer } from './reducers'
+import projectReducer from './reducers'
 import { CONFIG } from '../../globals'
 
 describe("Project actions", () => {
@@ -504,43 +504,68 @@ describe("Project operations (sagas)", () => {
 
 })
 
+let DEFAULT_STATE = {
+    find: {
+        loading: false,
+        projects: [],
+        currentProject: null,
+        error: null    
+    },
+    create: {
+        loading: false,
+        success: false,
+        error: null
+    },
+    delete: {
+        loading: false,
+        success: false,
+        error: null
+    }
+}
 describe("Project reducer", () => {
     it("Should return default find state", () => {
-        expect(findReducer(undefined, {})).toEqual({
-            loading: false,
-            projects: [],
-            currentProject: null,
-            error: null
-        })
+        expect(projectReducer(undefined, {})).toEqual(DEFAULT_STATE)
     })
 
     it("Should handle find all start", () => {
-        expect(findReducer({
-            loading: false,
-            projects: [],
-            currentProject: null,
-            error: null        
-        }, projectAction.findAllStart())).toEqual({
-            loading: true,
-            projects: [],
-            currentProject: null,
-            error: null
-        })
+        const new_state = {
+            ...DEFAULT_STATE,
+            find: {
+                loading: true,
+                projects: [],
+                currentProject: null,
+                error: null    
+            }
+        }
+
+        expect(projectReducer(DEFAULT_STATE, projectAction.findAllStart())).toEqual(new_state)
+
+        DEFAULT_STATE = new_state
     })
 
     it("Should handle find all error", () => {
         const error = "Error"
-        expect(findReducer({
-            loading: true,
-            projects: [],
-            currentProject: null,
-            error: null        
-        }, projectAction.findAllError(error))).toEqual({
-            loading: false,
-            projects: [],
-            currentProject: null,
-            error
-        })
+        const new_state = {
+            ...DEFAULT_STATE,
+            find: {
+                loading: false,
+                projects: [],
+                currentProject: null,
+                error    
+            }
+        }
+
+        expect(projectReducer({
+            ...DEFAULT_STATE,
+            find: {
+                loading: true,
+                projects: [],
+                currentProject: null,
+                error: null            
+            }
+        }, projectAction.findAllError(error))).toEqual(new_state)
+
+        DEFAULT_STATE = new_state
     })
 
     it("Should handle find all success", () => {
@@ -550,220 +575,263 @@ describe("Project reducer", () => {
                 name: "name "
             }
         ]
+
+        const new_state = {
+            ...DEFAULT_STATE,
+            find: {
+                loading: false,
+                projects: projects,
+                currentProject: null,
+                error: null    
+            }
+        }
         
-        expect(findReducer({
-            loading: true,
-            projects: [],
-            currentProject: null,
-            error: null        
-        }, projectAction.findAllSuccess(projects))).toEqual({
-            loading: false,
-            projects: projects,
-            currentProject: null,
-            error: null
-        })
+        expect(projectReducer({
+            ...DEFAULT_STATE,
+            find: {
+                loading: true,
+                projects: [],
+                currentProject: null,
+                error: null        
+            }
+        }, projectAction.findAllSuccess(projects))).toEqual(new_state)
+
+        DEFAULT_STATE = new_state
     })
 
     it("Should handle find by id start", () => {
-        const projects = [
-            {
-                id: "1",
-                name: "name "
+        const new_state = {
+            ...DEFAULT_STATE,
+            find: {
+                ...DEFAULT_STATE.find,
+                loading: true,
             }
-        ]
+        }
 
-        expect(findReducer({
-            loading: false,
-            projects: projects,
-            currentProject: null,
-            error: null        
-        }, projectAction.findByIdStart())).toEqual({
-            loading: true,
-            projects: projects,
-            currentProject: null,
-            error: null
-        })
+        expect(projectReducer({
+            ...DEFAULT_STATE,
+        }, projectAction.findByIdStart())).toEqual(new_state)
+
+        DEFAULT_STATE = new_state
     })
 
     it("Should handle find by id error", () => {
-        const projects = [
-            {
-                id: "1",
-                name: "name "
-            }
-        ]
-
         const error = "error"
         
-        expect(findReducer({
-            loading: true,
-            projects: projects,
-            currentProject: null,
-            error: null        
-        }, projectAction.findByIdError(error))).toEqual({
-            loading: false,
-            projects: projects,
-            currentProject: null,
-            error: error
-        })
+        const new_state = {
+            ...DEFAULT_STATE,
+            find: {
+                ...DEFAULT_STATE.find,
+                loading: false,
+                error: error    
+            }
+        }
+
+        expect(projectReducer({
+            ...DEFAULT_STATE,
+        }, projectAction.findByIdError(error))).toEqual(new_state)
+
+        DEFAULT_STATE = new_state
 
     })
 
     it("Should handle find by id success", () => {
-        const projects = [
-            {
-                id: "1",
-                name: "name "
+        const new_state = {
+            ...DEFAULT_STATE,
+            find: {
+                ...DEFAULT_STATE.find,
+                currentProject: DEFAULT_STATE.find.projects[0],
+                loading: false,
+                error: null
             }
-        ]
-        
-        expect(findReducer({
-            loading: false,
-            projects: projects,
-            currentProject: null,
-            error: null        
-        }, projectAction.findByIdSuccess(projects[0]))).toEqual({
-            loading: false,
-            projects: projects,
-            currentProject: projects[0],
-            error: null
-        })
+        }
+                
+        expect(projectReducer({
+            ...DEFAULT_STATE,
+            find: {
+                ...DEFAULT_STATE.find,
+                loading: true,
+                error: null
+            }
+        }, projectAction.findByIdSuccess(DEFAULT_STATE.find.projects[0]))).toEqual(new_state)
+
+        DEFAULT_STATE = new_state
     })
 
-    it("Should handle clear find error", () => {
-        const projects = [
-            {
-                id: "1",
-                name: "name "
+    it("Should handle clear find error", () => {        
+        const new_state = {
+            ...DEFAULT_STATE,
+            find: {
+                ...DEFAULT_STATE.find,
+                error: null    
             }
-        ]
-        
-        expect(findReducer({
-            loading: false,
-            projects: projects,
-            currentProject: null,
-            error: "Error"        
-        }, projectAction.clearFindError())).toEqual({
-            loading: false,
-            projects: projects,
-            currentProject: null,
-            error: null
-        })
-    })
+        }
 
-    it("Should return default create state", () => {
-        expect(createReducer(undefined, {})).toEqual({
-            loading: false,
-            success: false,
-            error: null
-        })
+        expect(projectReducer({
+            ...DEFAULT_STATE,
+        }, projectAction.clearFindError())).toEqual(new_state)
+
+        DEFAULT_STATE = new_state
     })
 
     it("Should handle create start", () => {
-        expect(createReducer({
-            loading: false,
-            success: false,
-            error: null
-        }, projectAction.createStart())).toEqual({
-            loading: true,
-            success: false,
-            error: null
-        })
+        const new_state = {
+            ...DEFAULT_STATE,
+            create: {
+                loading: true,
+                success: false,
+                error: null    
+            }
+        }
+
+        expect(projectReducer({
+            ...DEFAULT_STATE,
+            create: {
+                loading: false,
+                success: false,
+                error: null    
+            }
+        }, projectAction.createStart())).toEqual(new_state)
+
+        DEFAULT_STATE = new_state
     })
 
     it("Should handle create error", () => {
         const error = "error"
+        const new_state = {
+            ...DEFAULT_STATE,
+            create: {
+                loading: false,
+                success: false,
+                error: error    
+            }
+        }
 
-        expect(createReducer({
-            loading: true,
-            success: false,
-            error: null
-        }, projectAction.createError(error))).toEqual({
-            loading: false,
-            success: false,
-            error: error
-        })
+        expect(projectReducer({
+            ...DEFAULT_STATE,
+            create: {
+                loading: true,
+                success: false,
+                error: null    
+            }
+        }, projectAction.createError(error))).toEqual(new_state)
+
+        DEFAULT_STATE = new_state
     })
 
     it("Should handle create success", () => {
-        expect(createReducer({
-            loading: true,
-            success: false,
-            error: null
-        }, projectAction.createSuccess())).toEqual({
-            loading: false,
-            success: true,
-            error: null
-        })
+        const new_state = {
+            ...DEFAULT_STATE,
+            create: {
+                loading: false,
+                success: true,
+                error: null    
+            }
+        }
+
+        expect(projectReducer({
+            ...DEFAULT_STATE,
+            create: {
+                loading: true,
+                success: false,
+                error: null    
+            }
+        }, projectAction.createSuccess())).toEqual(new_state)
+
+        DEFAULT_STATE = new_state
     })
 
     it("Should handle clear create error", () => {
-        expect(createReducer({
-            loading: false,
-            success: false,
-            error: "Error"
-        }, projectAction.clearCreateError())).toEqual({
-            loading: false,
-            success: false,
-            error: null
-        })
-    })
+        const new_state = {
+            ...DEFAULT_STATE,
+            create: {
+                loading: false,
+                success: false,
+                error: null    
+            }
+        }
 
-    it("Should return default delete state", () => {
-        expect(deleteReducer(undefined, {})).toEqual({
-            loading: false,
-            success: false,
-            error: null
-        })
+        expect(projectReducer({
+            ...DEFAULT_STATE,
+            create: {
+                loading: false,
+                success: false,
+                error: "Error"    
+            }
+        }, projectAction.clearCreateError())).toEqual(new_state)
     })
 
     it("Should handle delete start", () => {
-        expect(deleteReducer({
-            loading: false,
-            success: false,
-            error: null
+        expect(projectReducer({
+            ...DEFAULT_STATE,
+            delete: {
+                loading: false,
+                success: false,
+                error: null    
+            }
         }, projectAction.deleteStart())).toEqual({
-            loading: true,
-            success: false,
-            error: null
+            ...DEFAULT_STATE,
+            delete: {
+                loading: true,
+                success: false,
+                error: null    
+            }
         })
     })
 
     it("Should handle delete error", () => {
         const error = "error"
 
-        expect(deleteReducer({
-            loading: true,
-            success: false,
-            error: null
+        expect(projectReducer({
+            ...DEFAULT_STATE,
+            delete: {
+                loading: true,
+                success: false,
+                error: null    
+            }
         }, projectAction.deleteError(error))).toEqual({
-            loading: false,
-            success: false,
-            error: error
+            ...DEFAULT_STATE,
+            delete: {
+                loading: false,
+                success: false,
+                error: error    
+            }
         })
     })
 
     it("Should handle delete success", () => {
-        expect(deleteReducer({
-            loading: true,
-            success: false,
-            error: null
+        expect(projectReducer({
+            ...DEFAULT_STATE,
+            delete: {
+                loading: true,
+                success: false,
+                error: null    
+            }
         }, projectAction.deleteSuccess())).toEqual({
-            loading: false,
-            success: true,
-            error: null
+            ...DEFAULT_STATE,
+            delete: {
+                loading: false,
+                success: true,
+                error: null    
+            }
         })
     })
 
     it("Should handle clear delete error", () => {
-        expect(deleteReducer({
-            loading: false,
-            success: false,
-            error: "Error"
+        expect(projectReducer({
+            ...DEFAULT_STATE,
+            delete: {
+                loading: false,
+                success: false,
+                error: "Error"    
+            }
         }, projectAction.clearDeleteError())).toEqual({
-            loading: false,
-            success: false,
-            error: null
+            ...DEFAULT_STATE,
+            delete: {
+                loading: false,
+                success: false,
+                error: null    
+            }
         })
     })
 })
