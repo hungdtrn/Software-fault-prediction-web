@@ -7,7 +7,7 @@ Optionally it exports the actions and types if they are needed in other ducks.
 
 */
 
-import { projectReducer } from './reducers'
+import projectReducer from './reducers'
 import * as projectSelectors from './selectors'
 import projectOperations from './operations'
 import * as projectActions from './actions'

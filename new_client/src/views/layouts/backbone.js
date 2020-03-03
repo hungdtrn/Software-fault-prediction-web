@@ -22,7 +22,7 @@ class BackboneLayout extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps.siders != this.props.siders || prevProps.content != this.props.content) {
-            console.log("setting state")
+
             this.setState({
                 ...this.state,
                 siders: this.props.siders,
@@ -45,7 +45,7 @@ class BackboneLayout extends React.Component {
     render() {
         const {pathname} = this.props.location;
         const { siders, content, collapsed } = this.state
-        console.log(siders)
+
         const defaultKeys = siders.filter((i) => i.path == pathname).map(i => i.key)
 
         return (

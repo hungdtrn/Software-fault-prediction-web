@@ -38,6 +38,7 @@ describe("Project actions", () => {
                 projects
             }
         })
+
     })
 
     it("Should create action for find all error", () => {
@@ -539,8 +540,6 @@ describe("Project reducer", () => {
         }
 
         expect(projectReducer(DEFAULT_STATE, projectAction.findAllStart())).toEqual(new_state)
-
-        DEFAULT_STATE = new_state
     })
 
     it("Should handle find all error", () => {
@@ -564,8 +563,6 @@ describe("Project reducer", () => {
                 error: null            
             }
         }, projectAction.findAllError(error))).toEqual(new_state)
-
-        DEFAULT_STATE = new_state
     })
 
     it("Should handle find all success", () => {
@@ -594,8 +591,8 @@ describe("Project reducer", () => {
                 currentProject: null,
                 error: null        
             }
-        }, projectAction.findAllSuccess(projects))).toEqual(new_state)
-
+        }, projectAction.findAllSuccess(projects))).toEqual(new_state)    
+    
         DEFAULT_STATE = new_state
     })
 
@@ -611,8 +608,6 @@ describe("Project reducer", () => {
         expect(projectReducer({
             ...DEFAULT_STATE,
         }, projectAction.findByIdStart())).toEqual(new_state)
-
-        DEFAULT_STATE = new_state
     })
 
     it("Should handle find by id error", () => {
@@ -630,9 +625,6 @@ describe("Project reducer", () => {
         expect(projectReducer({
             ...DEFAULT_STATE,
         }, projectAction.findByIdError(error))).toEqual(new_state)
-
-        DEFAULT_STATE = new_state
-
     })
 
     it("Should handle find by id success", () => {
@@ -654,7 +646,7 @@ describe("Project reducer", () => {
                 error: null
             }
         }, projectAction.findByIdSuccess(DEFAULT_STATE.find.projects[0]))).toEqual(new_state)
-
+    
         DEFAULT_STATE = new_state
     })
 
@@ -670,8 +662,6 @@ describe("Project reducer", () => {
         expect(projectReducer({
             ...DEFAULT_STATE,
         }, projectAction.clearFindError())).toEqual(new_state)
-
-        DEFAULT_STATE = new_state
     })
 
     it("Should handle create start", () => {
@@ -692,8 +682,6 @@ describe("Project reducer", () => {
                 error: null    
             }
         }, projectAction.createStart())).toEqual(new_state)
-
-        DEFAULT_STATE = new_state
     })
 
     it("Should handle create error", () => {
@@ -715,8 +703,6 @@ describe("Project reducer", () => {
                 error: null    
             }
         }, projectAction.createError(error))).toEqual(new_state)
-
-        DEFAULT_STATE = new_state
     })
 
     it("Should handle create success", () => {
@@ -737,8 +723,6 @@ describe("Project reducer", () => {
                 error: null    
             }
         }, projectAction.createSuccess())).toEqual(new_state)
-
-        DEFAULT_STATE = new_state
     })
 
     it("Should handle clear create error", () => {

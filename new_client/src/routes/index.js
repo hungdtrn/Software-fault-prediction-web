@@ -1,5 +1,6 @@
 import { Redirect } from 'react-router-dom'
-import { Login, Register, Home, Project, Algorithm, AccountDetail, NoMatch } from '../views/pages';
+import { Login, Register, Home, Project, Algorithm, 
+        AccountDetail, NoMatch, ProjectForm } from '../views/pages';
 import { withAuthentication } from '../views/enhancers'
 
 
@@ -60,8 +61,16 @@ const adminRoutes = [
     },
 ]
 
+const projectRoutes = [
+    {
+        path: "/projects/create",
+        component: ProjectForm,
+    }
+]
+
 export {
     generalRoutes,
     userRouters,
-    adminRoutes
+    adminRoutes,
+    projectRoutes,
 }
