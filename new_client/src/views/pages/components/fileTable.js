@@ -1,6 +1,6 @@
 import React from 'react';
 import { List, Card, Icon  } from 'antd'
-import { Link, useRouteMatch, Switch, Route, useParams } from 'react-router-dom'
+import { Link, useRouteMatch, useHistory, useParams } from 'react-router-dom'
 
 const FileTable = ({ files }) => {
     const render_icon = (file) => {
@@ -10,6 +10,7 @@ const FileTable = ({ files }) => {
 
     let { path, url } = useRouteMatch()
     let { projectId, fileId } = useParams()
+    let history = useHistory()
 
     if (fileId) {
         url = url.replace(`/${fileId}`, "")
@@ -23,11 +24,9 @@ const FileTable = ({ files }) => {
                     renderItem={item => {
                         if (item.previous) {
                             return (
-                                <Link to={item.previous}>
-                                    <Card hoverable>
-                                        ...
-                                    </Card>
-                                </Link>
+                                <Card hoverable onClick={() => history.goBack()}>
+                                    ...
+                                </Card>
                             )
                         } else{
                             return (

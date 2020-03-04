@@ -61,8 +61,8 @@ const predictByIdError = ( error ) => ({
     }
 })
 
-const clearPredictError = ( ) => ({
-    type: types.CLEAR_PREDICT_ERROR
+const clearPredict = ( ) => ({
+    type: types.CLEAR_PREDICT
 })
 
 export {
@@ -76,5 +76,5 @@ export {
     predictByIdStart,
     predictByIdError,
     predictByIdSuccess,
-    clearPredictError
+    clearPredict
 }

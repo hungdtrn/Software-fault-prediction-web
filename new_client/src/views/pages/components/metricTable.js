@@ -5,6 +5,8 @@ const MetricTable = ({ metrics, header }) => {
     const keyNames = [
         "name", "wmc", "dit", "noc", "cbo", "rfc", "lcom", "ca", "ce", "npm", "lcom3", "lco", "dam", "moa", "mfa", "cam", "ic", "cbm", "amc", "max_cc", "avg_cc", "bug"
     ]
+
+    console.log("begin")
     const columns = keyNames.map((t) => {
         let column = {
             title: t.toUpperCase(),
@@ -34,9 +36,7 @@ const MetricTable = ({ metrics, header }) => {
             key: id
         }
     });
-
-    console.log(data)
-
+    console.log("end")
     return (
         <Table 
             columns={columns}

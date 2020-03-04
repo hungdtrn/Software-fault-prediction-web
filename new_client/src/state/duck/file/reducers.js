@@ -70,7 +70,7 @@ const predictReducer = (state=initialPredictState, action) => {
                 updatedFile: action.payload.updatedFile,
                 error: null
             })
-        case FILETYPES.CLEAR_PREDICT_ERROR:
+        case FILETYPES.CLEAR_PREDICT:
             return Object.assign({}, state, {
                 loading: false,
                 updatedFile: null,
