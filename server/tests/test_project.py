@@ -102,7 +102,7 @@ class ProjectTestCase(unittest.TestCase):
 
     def test_6_create_project_with_invalid_link(self):
         # Login first
-        response = self.client.post('/auth/login',
+        response = self.client.post('/api/auth/login',
                                     data=json.dumps(dict(username = 'user1',
                                                          password = 'test')),
                                     headers=self.get_api_headers()
@@ -124,7 +124,7 @@ class ProjectTestCase(unittest.TestCase):
 
     def test_7_create_project_with_valid_link(self):
         # Login first
-        response = self.client.post('/auth/login',
+        response = self.client.post('/api/auth/login',
                                     data=json.dumps(dict(username = 'user1',
                                                          password = 'test')),
                                     headers=self.get_api_headers()
@@ -137,7 +137,7 @@ class ProjectTestCase(unittest.TestCase):
                                     data=json.dumps(dict(name="TestProject",
                                                          github="https://github.com/DuyHung21/jar_files.git")),
                                     headers=self.get_api_headers(access_token))
-        created_id = response.get_json()['result']
+        created_id = response.get_json()['result']["_id"]
         self.assertEqual(response.status_code, 201)
         # The status of created project must be updating and the files most be empty
         created_project = project_model.find_one({"_id": ObjectId(created_id)})
@@ -185,7 +185,7 @@ class ProjectTestCase(unittest.TestCase):
 
     def test_9_access_all_by_owner(self):
         # Login first
-        response = self.client.post('/auth/login',
+        response = self.client.post('/api/auth/login',
                                     data=json.dumps(dict(username = 'user1',
                                                          password = 'test')),
                                     headers=self.get_api_headers()

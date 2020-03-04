@@ -1,6 +1,7 @@
 import { Redirect } from 'react-router-dom'
 import { Login, Register, Home, Project, Algorithm, 
-        AccountDetail, NoMatch, ProjectForm } from '../views/pages';
+        AccountDetail, NoMatch, ProjectForm, ProjectDetail,
+        FileDetail } from '../views/pages';
 import { withAuthentication } from '../views/enhancers'
 
 
@@ -65,7 +66,16 @@ const projectRoutes = [
     {
         path: "/projects/create",
         component: ProjectForm,
-    }
+    },
+    {
+        path: "/projects/:projectId/files",
+        component: ProjectDetail,
+        exact: true,
+    },
+    {
+        path: "/projects/:projectId/files/:fileId",
+        component: FileDetail,
+    },
 ]
 
 export {

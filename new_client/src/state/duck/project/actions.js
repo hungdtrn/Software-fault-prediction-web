@@ -38,6 +38,13 @@ const findByIdStart = ( ) => ({
     type: types.FIND_BY_ID_START
 })
 
+const findByIdInArray = ( id ) => ({
+    type: types.FIND_BY_ID_IN_ARRAY,
+    payload: {
+        id
+    }
+})
+
 const findByIdSuccess = ( project ) => ({
     type: types.FIND_BY_ID_SUCCESS,
     payload: {
@@ -120,6 +127,7 @@ export {
 
     findByIdRequest,
     findByIdStart,
+    findByIdInArray,
     findByIdSuccess,
     findByIdError,
     

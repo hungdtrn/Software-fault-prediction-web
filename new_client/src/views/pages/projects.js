@@ -57,7 +57,7 @@ class ProjectPage extends React.Component {
                                                             <Col key={c._id} span={12}>
                                                                 {
                                                                     (c.status == "done") ? (
-                                                                        <Link to={`/projects/${c._id}`}>
+                                                                        <Link to={`/projects/${c._id}/files`}>
                                                                             <Card hoverable title={c.name} bordered={false}>
                                                                                 <p className="truncate">
                                                                                     {c.description}

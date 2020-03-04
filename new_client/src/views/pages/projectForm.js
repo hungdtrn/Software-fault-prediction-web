@@ -39,7 +39,7 @@ class ProjectForm extends React.Component {
     }
 
     render() {
-        const { loading, success, error } = this.props
+        const { loading, createdProject, error } = this.props
         const { getFieldDecorator } = this.props.form
 
         return (<div>
@@ -54,7 +54,7 @@ class ProjectForm extends React.Component {
 
             <Modal 
                 title={ "Success !" }
-                visible={success} 
+                visible={createdProject != null} 
                 content={"Project created"} 
                 handleOk={this.handleSuccess} 
                 handleCancel={this.handleSuccess} 
@@ -101,7 +101,7 @@ class ProjectForm extends React.Component {
 const mapStateToProps = ( state ) => {
     return {
         loading: state.project.create.loading,
-        success: state.project.create.success,
+        createdProject: state.project.create.createdProject,
         error: state.project.create.error    
     }
 }

@@ -102,7 +102,14 @@ def create_project():
 
             return jsonify({
                 "msg": "Project created",
-                "result": projectId
+                "result": {
+                    "_id": projectId,
+                    "userId": g.current_user["_id"],
+                    "name": request_form["name"],
+                    "github": request_form["github"],
+                    "files": [],
+                    "status": Project.UPDATE_STATUS,
+                }
             }), 201
         except Exception as e:
             print(e)

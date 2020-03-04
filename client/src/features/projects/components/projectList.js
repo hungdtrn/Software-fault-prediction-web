@@ -34,20 +34,30 @@ const FunctionProjectList = ({ projects }) => {
                         <Col span={12}><Title>Projects</Title></Col>
                         <Col span={12} align={"right"}><Button><Link to="/projects/create">New</Link></Button></Col>
                     </Row>
-                    {
-                        (projects.length == 0) ? <div>No projects found</div> :
-                        makeCardData(projects, num_col).map((r, id) => {
-                            return (
-                                <div>
-                                    <Row gutter={16} style={{"marginBottom": "10px"}}>
-                                        {
-                                            r.map((c) => {
-                                                return (
-                                                    <Col key={c._id} span={12}>
-                                                        {
-                                                            (c.status == "done") ? (
-                                                                <Link to={`${url}/${c._id}`}>
-                                                                    <Card hoverable title={c.name} bordered={false}>
+                    <Row>
+                        {
+                            (projects.length == 0) ? <div>No projects found</div> :
+                            makeCardData(projects, num_col).map((r, id) => {
+                                return (
+                                    <div>
+                                        <Row gutter={16} style={{"marginBottom": "10px"}}>
+                                            {
+                                                r.map((c) => {
+                                                    return (
+                                                        <Col key={c._id} span={12}>
+                                                            {
+                                                                (c.status == "done") ? (
+                                                                    <Link to={`${url}/${c._id}`}>
+                                                                        <Card hoverable title={c.name} bordered={false}>
+                                                                            <p className="truncate">
+                                                                                {c.description}
+                                                                            </p>
+                                                                            <p>
+                                                                                {c.github}
+                                                                            </p>
+                                                                        </Card>
+                                                                    </Link>
+                                                                ) : <Card hoverable title={`${c.name} (updating)`} bordered={false} loading={true}>
                                                                         <p className="truncate">
                                                                             {c.description}
                                                                         </p>
@@ -55,25 +65,17 @@ const FunctionProjectList = ({ projects }) => {
                                                                             {c.github}
                                                                         </p>
                                                                     </Card>
-                                                                </Link>
-                                                            ) : <Card hoverable title={`${c.name} (updating)`} bordered={false} loading={true}>
-                                                                    <p className="truncate">
-                                                                        {c.description}
-                                                                    </p>
-                                                                    <p>
-                                                                        {c.github}
-                                                                    </p>
-                                                                </Card>
-                                                        }
-                                                    </Col>
-                                                )
-                                            })
-                                        }
-                                    </Row>
-                                </div>
-                            )    
-                        })
-                    }
+                                                            }
+                                                        </Col>
+                                                    )
+                                                })
+                                            }
+                                        </Row>
+                                    </div>
+                                )    
+                            })
+                        }
+                    </Row>
                 </Route>
             </Switch>
             </Col></Row>
@@ -91,14 +93,12 @@ class ProjectList extends React.Component {
         }
     }
 
-    componentWillMount() {
-        this.props.findAll()
-    }
+    componentDidMount(props) {
 
-    componentWillReceiveProps(props) {
-        this.setState({
-            projects: props.projects
-        })
+    }
+    
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        
     }
 
     render() {

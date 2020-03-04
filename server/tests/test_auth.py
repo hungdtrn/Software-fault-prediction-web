@@ -44,7 +44,7 @@ class AuthTestCase(unittest.TestCase):
         self.assertTrue(decoded_token["_id"] is not None)
 
     def test_login_with_wrong_username(self):
-        response = self.client.post('/auth/login',
+        response = self.client.post('/api/auth/login',
                                     data=json.dumps(dict(username = 'fail',
                                                          password = 'fail')),
                                     headers=self.get_api_headers())
@@ -57,7 +57,7 @@ class AuthTestCase(unittest.TestCase):
         self.assertTrue(response_msg['result'] is None)
 
     def test_login_with_wrong_password(self):
-        response = self.client.post('/auth/login',
+        response = self.client.post('/api/auth/login',
                                     data=json.dumps(dict(username = 'fail',
                                                          password = 'user')),
                                     headers=self.get_api_headers()
@@ -72,7 +72,7 @@ class AuthTestCase(unittest.TestCase):
 
 
     def test_login_success(self):
-        response = self.client.post('/auth/login',
+        response = self.client.post('/api/auth/login',
                                     data=json.dumps(dict(username = 'user',
                                                          password = 'user')),
                                     headers=self.get_api_headers()
@@ -94,7 +94,7 @@ class AuthTestCase(unittest.TestCase):
     #     pass
 
     def test_register_success(self):
-        response = self.client.post("/auth/register",
+        response = self.client.post("/api/auth/register",
                                     data=json.dumps(dict(
                                         username = "user1",
                                         password = "user",
@@ -112,7 +112,7 @@ class AuthTestCase(unittest.TestCase):
         self.assertTrue("role" in decoded_token)
 
     def test_register_with_duplicated_username(self):
-        response = self.client.post("/auth/register",
+        response = self.client.post("/api/auth/register",
                                     data=json.dumps(dict(
                                         username = "user1",
                                         password = "user",

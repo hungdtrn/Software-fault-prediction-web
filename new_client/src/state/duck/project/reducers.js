@@ -37,6 +37,14 @@ const findReducer = (state=initialFindState, action) => {
             return Object.assign({}, state, {
                 loading: true,
             })
+        case PROJECTTYPES.FIND_BY_ID_IN_ARRAY: 
+            let currentProject = state.projects.find(item => item._id == action.payload.id)
+            if (!currentProject) currentProject = null
+
+            return Object.assign({}, state, {
+                loading: false,
+                currentProject
+            })
         case PROJECTTYPES.FIND_BY_ID_SUCCESS:
             return Object.assign({}, state, {
                 loading: false,
@@ -52,6 +60,10 @@ const findReducer = (state=initialFindState, action) => {
             return Object.assign({}, state, {
                 error: null
             })
+        case PROJECTTYPES.CREATE_SUCCESS:
+            return Object.assign({}, state, {
+                projects: [...state.projects, action.payload.createdProject]
+            })
         default:
             return state
     }
@@ -59,7 +71,7 @@ const findReducer = (state=initialFindState, action) => {
 
 const initialCreateState = {
     loading: false,
-    success: false,
+    createdProject: null,
     error: null
 }
 const createReducer = (state=initialCreateState, action) => {
@@ -72,13 +84,13 @@ const createReducer = (state=initialCreateState, action) => {
         case PROJECTTYPES.CREATE_ERROR:
             return Object.assign({}, state, {
                 loading: false,
-                success: false,
+                createdProject: null,
                 error: action.payload.error
             })
         case PROJECTTYPES.CREATE_SUCCESS:
             return Object.assign({}, state, {
                 loading: false,
-                success: true,
+                createdProject: action.payload.createdProject,
                 error: null
             })
         case PROJECTTYPES.CLEAR_CREATE_ERROR:

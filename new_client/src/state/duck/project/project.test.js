@@ -67,7 +67,7 @@ describe("Project actions", () => {
         })
     })
 
-    it("Should create action for find by id success", () => {
+    it("Should create action for find by id success (api)", () => {
         const project = {
             id: "id",
             name: "test"
@@ -77,6 +77,17 @@ describe("Project actions", () => {
             type: projectType.FIND_BY_ID_SUCCESS,
             payload: {
                 currentProject: project
+            }
+        })
+    })
+
+    it("Should create action for find by id in array", () => {
+        const id = "id"
+
+        expect(projectAction.findByIdInArray(id)).toEqual({
+            type: projectType.FIND_BY_ID_IN_ARRAY,
+            payload: {
+                id
             }
         })
     })
@@ -514,7 +525,7 @@ let DEFAULT_STATE = {
     },
     create: {
         loading: false,
-        success: false,
+        createdProject: null,
         error: null
     },
     delete: {
@@ -610,6 +621,47 @@ describe("Project reducer", () => {
         }, projectAction.findByIdStart())).toEqual(new_state)
     })
 
+    it("Should handle find by id in array", () => {
+        const projects = [{
+            _id: "1",
+            name: "tst1"
+        }, {
+            _id: "2",
+            name: 'test2'
+        }]
+
+        expect(projectReducer({
+            ...DEFAULT_STATE,
+            find: {
+                ...DEFAULT_STATE.find,
+                projects
+            }
+        }, projectAction.findByIdInArray("1"))).toEqual({
+            ...DEFAULT_STATE,
+            find: {
+                ...DEFAULT_STATE.find,
+                projects,
+                currentProject: projects[0]
+            }
+        })
+
+        expect(projectReducer({
+            ...DEFAULT_STATE,
+            find: {
+                ...DEFAULT_STATE.find,
+                projects
+            }
+        }, projectAction.findByIdInArray("5"))).toEqual({
+            ...DEFAULT_STATE,
+            find: {
+                ...DEFAULT_STATE.find,
+                projects,
+                currentProject: null
+            }
+        })
+
+    })
+
     it("Should handle find by id error", () => {
         const error = "error"
         
@@ -669,7 +721,7 @@ describe("Project reducer", () => {
             ...DEFAULT_STATE,
             create: {
                 loading: true,
-                success: false,
+                createdProject: null,
                 error: null    
             }
         }
@@ -678,7 +730,7 @@ describe("Project reducer", () => {
             ...DEFAULT_STATE,
             create: {
                 loading: false,
-                success: false,
+                createdProject: null,
                 error: null    
             }
         }, projectAction.createStart())).toEqual(new_state)
@@ -690,7 +742,7 @@ describe("Project reducer", () => {
             ...DEFAULT_STATE,
             create: {
                 loading: false,
-                success: false,
+                createdProject: null,
                 error: error    
             }
         }
@@ -699,18 +751,28 @@ describe("Project reducer", () => {
             ...DEFAULT_STATE,
             create: {
                 loading: true,
-                success: false,
+                createdProject: null,
                 error: null    
             }
         }, projectAction.createError(error))).toEqual(new_state)
     })
 
     it("Should handle create success", () => {
+        const createdProject = {
+            "id": 2,
+            "name": "test2"
+        }
+
         const new_state = {
             ...DEFAULT_STATE,
+            find: {
+                ...DEFAULT_STATE.find,
+                projects: [...DEFAULT_STATE.find.projects, createdProject]
+            },
+
             create: {
                 loading: false,
-                success: true,
+                createdProject: createdProject,
                 error: null    
             }
         }
@@ -719,10 +781,10 @@ describe("Project reducer", () => {
             ...DEFAULT_STATE,
             create: {
                 loading: true,
-                success: false,
+                createdProject: createdProject,
                 error: null    
             }
-        }, projectAction.createSuccess())).toEqual(new_state)
+        }, projectAction.createSuccess(createdProject))).toEqual(new_state)
     })
 
     it("Should handle clear create error", () => {
@@ -730,7 +792,7 @@ describe("Project reducer", () => {
             ...DEFAULT_STATE,
             create: {
                 loading: false,
-                success: false,
+                createdProject: null,
                 error: null    
             }
         }
@@ -739,7 +801,7 @@ describe("Project reducer", () => {
             ...DEFAULT_STATE,
             create: {
                 loading: false,
-                success: false,
+                createdProject: null,
                 error: "Error"    
             }
         }, projectAction.clearCreateError())).toEqual(new_state)
