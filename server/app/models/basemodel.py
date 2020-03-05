@@ -72,4 +72,4 @@ class BaseModel(ABC):
         }, upsert=False)
 
     def delete(self, selector):
-        return self.adapter.delete(selector)
+        return self.adapter.delete_one(selector)

@@ -16,7 +16,7 @@ async function create( project ) {
 }
 
 async function deleteById( id ) {
-    return await fetch("/projects" + id, "DELETE", null, getToken())
+    return await fetch("/projects/" + id, "DELETE", null, getToken())
 }
 
 export {

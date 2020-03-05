@@ -113,12 +113,12 @@ describe("File actions", () => {
 
     })
 
-    it("Should create action for clear predict by id", () => {
+    it("Should create action for clear predict", () => {
         const expectAction = {
-            type: fileType.CLEAR_PREDICT_ERROR,
+            type: fileType.CLEAR_PREDICT,
         }
 
-        expect(fileAction.clearPredictError()).toEqual(expectAction)
+        expect(fileAction.clearPredict()).toEqual(expectAction)
     })
 })
 
@@ -455,8 +455,8 @@ describe("File reducers", () => {
 
     })
 
-    it("Should handle clear predict error", () => {
-        const prevState = {
+    it("Should handle clear predict", () => {
+        const prevState1 = {
             ...DEFAULT_STATE,
             predict: {
                 loading: false,
@@ -465,9 +465,20 @@ describe("File reducers", () => {
             }
         }
 
+        const prevState2 = {
+            ...DEFAULT_STATE,
+            predict: {
+                loading: false,
+                updatedFile: {
+                    id: "id",
+                    name: "test",
+                },
+                error: null,
+            }
+        }
 
         const newState = {
-            ...prevState,
+            ...DEFAULT_STATE,
             predict: {
                 loading: false,
                 updatedFile: null,
@@ -475,7 +486,8 @@ describe("File reducers", () => {
             }
         }
 
-        expect(fileReducer(prevState, fileAction.clearPredictError())).toEqual(newState)
+        expect(fileReducer(prevState1, fileAction.clearPredict())).toEqual(newState)
+        expect(fileReducer(prevState2, fileAction.clearPredict())).toEqual(newState)
 
     })
 })

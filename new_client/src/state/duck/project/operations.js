@@ -100,7 +100,7 @@ function* deleteById(action) {
         if (timeout) {
             yield put(projectActions.deleteError("Timeout"))
         } else if (response.result) {
-            yield put(projectActions.deleteSuccess())
+            yield put(projectActions.deleteSuccess(action.payload.id))
         } else {
             yield put(projectActions.deleteError(response.msg))
         }

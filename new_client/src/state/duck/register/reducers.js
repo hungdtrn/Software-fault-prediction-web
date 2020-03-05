@@ -34,7 +34,7 @@ const registerReducer = (state, action) => {
         }
         case REGISTERTYPES.REGISTER_ERROR: {
             const { error } = action.payload
-            console.log(error)
+
             return Object.assign({}, state, {
                 error,
                 loading: false,

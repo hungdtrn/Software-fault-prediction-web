@@ -153,3 +153,19 @@ def find_project_by_id(id):
             "msg": str(e),
             "result": None,
         }), 400
+
+@api.route("/projects/<ObjectId:id>", methods=["DELETE"])
+@authorization_required
+def delete_project_by_id(id):
+    try:
+        deleted_project = project_model.delete({"_id": id})
+
+        return jsonify({
+            "msg": None,
+            "result": "Succes"
+        }), 200
+    except Exception as e:
+        return jsonify({
+            "msg": str(e),
+            "result": None,
+        }), 400

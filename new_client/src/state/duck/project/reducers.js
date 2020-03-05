@@ -64,6 +64,10 @@ const findReducer = (state=initialFindState, action) => {
             return Object.assign({}, state, {
                 projects: [...state.projects, action.payload.createdProject]
             })
+        case PROJECTTYPES.DELETE_SUCCESS:
+            return Object.assign({}, state, {
+                projects: state.projects.filter(item => item._id != action.payload.id)
+            })
         default:
             return state
     }
@@ -93,8 +97,10 @@ const createReducer = (state=initialCreateState, action) => {
                 createdProject: action.payload.createdProject,
                 error: null
             })
-        case PROJECTTYPES.CLEAR_CREATE_ERROR:
+        case PROJECTTYPES.CLEAR_CREATE:
             return Object.assign({}, state, {
+                loading: false,
+                createdProject: null,
                 error: null
             })
         default:
@@ -126,8 +132,10 @@ const deleteReducer = (state=initialDeleteState, action) => {
                 error: null,
                 success: true,
             })
-        case PROJECTTYPES.CLEAR_DELETE_ERROR:
+        case PROJECTTYPES.CLEAR_DELETE:
             return Object.assign({}, state, {
+                loading: false,
+                success: false,
                 error: null
             })
         default:

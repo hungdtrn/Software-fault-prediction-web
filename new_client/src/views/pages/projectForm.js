@@ -22,10 +22,11 @@ class ProjectForm extends React.Component {
     }
 
     clearError = () => {
-        this.props.clearError()
+        this.props.clearCreate()
     }
 
     handleSuccess = () => {
+        this.props.clearCreate()
         this.props.history.push("/projects")
     }
 
@@ -108,7 +109,7 @@ const mapStateToProps = ( state ) => {
 
 const mapDispatchToProps = ( dispatch ) => ({
     create: (project) => dispatch(projectActions.createRequest(project)),
-    clearError: () => dispatch(projectActions.clearCreateError())
+    clearCreate: () => dispatch(projectActions.clearCreate()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form.create({ name: 'project_form' })(ProjectForm))

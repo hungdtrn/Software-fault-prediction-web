@@ -88,8 +88,8 @@ const createError = ( error ) => ({
     }
 })
 
-const clearCreateError = ( ) => ({
-    type: types.CLEAR_CREATE_ERROR
+const clearCreate = ( ) => ({
+    type: types.CLEAR_CREATE
 })
 
 const deleteRequest = ( id ) => ({
@@ -103,8 +103,11 @@ const deleteStart = ( ) => ({
     type: types.DELETE_START
 })
 
-const deleteSuccess = ( ) => ({
-    type: types.DELETE_SUCCESS
+const deleteSuccess = ( id ) => ({
+    type: types.DELETE_SUCCESS,
+    payload: {
+        id
+    }
 })
 
 const deleteError = ( error ) => ({
@@ -114,8 +117,8 @@ const deleteError = ( error ) => ({
     }
 })
 
-const clearDeleteError = ( ) => ({
-    type: types.CLEAR_DELETE_ERROR,
+const clearDelete = ( ) => ({
+    type: types.CLEAR_DELETE,
 })
 
 
@@ -137,11 +140,11 @@ export {
     createStart,
     createSuccess,
     createError,
-    clearCreateError,
+    clearCreate,
 
     deleteRequest,
     deleteStart,
     deleteSuccess,
     deleteError,
-    clearDeleteError,
+    clearDelete,
 }

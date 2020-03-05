@@ -6,7 +6,6 @@ const MetricTable = ({ metrics, header }) => {
         "name", "wmc", "dit", "noc", "cbo", "rfc", "lcom", "ca", "ce", "npm", "lcom3", "lco", "dam", "moa", "mfa", "cam", "ic", "cbm", "amc", "max_cc", "avg_cc", "bug"
     ]
 
-    console.log("begin")
     const columns = keyNames.map((t) => {
         let column = {
             title: t.toUpperCase(),
@@ -43,7 +42,7 @@ const MetricTable = ({ metrics, header }) => {
             dataSource={data}
             scroll={{ x: '100vw', y: 'calc(100vh - 20em)' }}
             bordered
-            pagination={false}
+            pagination={true}
             title={header}
             style={{"fontSize": "10px"}}
         />
