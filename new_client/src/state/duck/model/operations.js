@@ -38,10 +38,92 @@ function* findAll(action) {
     }
 }
 
+function* findById(action) {
+    try {
+        yield put(modelActions.findByIdStart())
+
+        const { response, timeout } = yield race({
+            response: call(apis.findById, action.payload.id),
+            timeout: delay(CONFIG.REQUEST_TIMEOUT)
+        })
+
+        if (timeout) {
+            yield put(modelActions.findByIdError("Timeout"))
+        } else if (response.result) {
+            yield put(modelActions.findByIdSuccess(response.result))
+        } else {
+            yield put(modelActions.findByIdError(response.msg))
+        }
+    } catch (err) {
+        if (err.hasOwnProperty("response")) {
+            yield put(modelActions.findByIdError(err.response.msg))
+        } else {
+            yield put(modelActions.findByIdError(err.toString()))
+        }
+    }
+}
+
+function* create(action) {
+    try {
+        yield put(modelActions.createStart())
+
+        const { response, timeout } = yield race({
+            response: call(apis.create, action.payload.model),
+            timeout: delay(CONFIG.REQUEST_TIMEOUT)
+        })
+
+        if (timeout) {
+            yield put(modelActions.createError("Timeout"))
+        } else if (response.result) {
+            yield put(modelActions.createSuccess(response.result))
+        } else {
+            yield put(modelActions.createError(response.msg))
+        }
+    } catch (err) {
+        if (err.hasOwnProperty("response")) {
+            yield put(modelActions.createError(err.response.msg))
+        } else {
+            yield put(modelActions.createError(err.toString()))
+        }
+    }
+}
+
+function* deleteById(action) {
+    try {
+        yield put(modelActions.deleteStart())
+
+        const { response, timeout } = yield race({
+            response: call(apis.deleteById, action.payload.id),
+            timeout: delay(CONFIG.REQUEST_TIMEOUT)
+        })
+
+        if (timeout) {
+            yield put(modelActions.deleteError("Timeout"))
+        } else if (response.result) {
+            yield put(modelActions.deleteSuccess(response.result))
+        } else {
+            yield put(modelActions.deleteError(response.msg))
+        }
+    } catch (err) {
+        if (err.hasOwnProperty("response")) {
+            yield put(modelActions.deleteError(err.response.msg))
+        } else {
+            yield put(modelActions.deleteError(err.toString()))
+        }
+    }
+}
+
+
 export default function* modelSaga() {
     yield takeEvery(modelTypes.FIND_ALL_REQUEST, findAll)
+    yield takeEvery(modelTypes.FIND_BY_ID_REQUEST, findById)
+    yield takeEvery(modelTypes.CREATE_REQUEST, create)
+    yield takeEvery(modelTypes.DELETE_REQUEST, deleteById)
 }
 
 export {
     findAll,
+    findById,
+    create,
+    deleteById
 }
