@@ -54,11 +54,14 @@ def create_model():
         }).inserted_id
 
         return  jsonify({
-            "msg": "Modle created",
-            "result": created_id
+            "msg": "Model created",
+            "result": {
+                "_id": created_id,
+                "name": request_form["name"],
+            }
         }), 201
 
-    except Exception:
+    except Exception as e:
         return jsonify({
             "msg": "Model file is not valid.",
             "result": None

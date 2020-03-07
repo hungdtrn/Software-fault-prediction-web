@@ -10,9 +10,12 @@ async function findById ( id ) {
 }
 
 async function create ( model ) {
-    return await fetch(`/models`, "POST", {
-        ...model
-    }, getToken())
+    let formData = new FormData()
+    formData.append("name", model.name)
+    if (model.description) formData.append("description", model.description)
+    formData.append("file", model.file)
+
+    return await fetch(`/models`, "POST", formData, getToken(), true)
 }
 
 async function deleteById ( id ) {
