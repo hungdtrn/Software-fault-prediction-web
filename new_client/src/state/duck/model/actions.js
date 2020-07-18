@@ -89,6 +89,13 @@ const clearCreate = ( ) => ({
     type: types.CLEAR_CREATE
 })
 
+const updateRequest = ( model ) => ({
+    type: types.UPDATE_BY_ID_REQUEST,
+    payload: {
+        model
+    }
+})
+
 const deleteByIdRequest = ( id ) => ({
     type: types.DELETE_REQUEST,
     payload: {

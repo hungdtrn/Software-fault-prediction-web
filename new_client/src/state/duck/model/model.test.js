@@ -162,6 +162,22 @@ describe("Model actions", () => {
         })
     })
 
+    it("Should create action to perform update request", () => {
+        expect(true).toEqual(false)
+    })
+
+    it("Should create action for update start", () => {
+        expect(true).toEqual(false)
+    }) 
+
+    it("Should create action for update error", () => {
+        expect(true).toEqual(false)
+    })
+
+    it("Should create action for clear update", () => {
+        expect(true).toEqual(false)
+    })
+
     it("Should create action to perform delete request", () => {
         const id = "1"
         expect(modelAction.deleteByIdRequest(id)).toEqual({
@@ -438,6 +454,21 @@ describe("Model operations (sagas)", () => {
         expect(next.value).toEqual(put(modelAction.createSuccess(modelForm)))
     })
 
+    it("Should update by id start", () => {
+        expect(true).toEqual(false)
+    })
+
+    it("Should update by id fail (timeout)", () => {
+        expect(true).toEqual(false)
+    })
+
+    it("Should update by id fail (server)", () => {
+        expect(true).toEqual(false)
+    })
+
+    it("Should update by id success", () => {
+        expect(true).toEqual(false)
+    })
 
     it("Should delete start", () => {
         const id = "id"
@@ -519,6 +550,11 @@ let DEFAULT_STATE = {
         loading: false,
         createdModel: null,
         error: null
+    },
+    update: {
+        loading: false,
+        updatedModel: null,
+        error: null,
     },
     delete: {
         loading: false,
@@ -848,6 +884,23 @@ describe("Find reducers", () => {
         expect(modelReducer(prevState2, modelAction.clearCreate())).toEqual(newState)
 
     })
+
+    it("Should handle update start", () => {
+        expect(true).toEqual(false)
+    })
+
+    it("Should handle update error", () => {
+        expect(true).toEqual(false)
+    })
+
+    it("Should handle update success", () => {
+        expect(true).toEqual(false)
+    })
+
+    it("Should handle clear update", () => {
+        expect(true).toEqual(false)
+    })
+
 
     it("Should handle delete start", () => {
         const prevState = {
