@@ -67,7 +67,7 @@ def create_model():
             "result": None
         }), 400
 
-@api.route("/models", metheds=["PUT"])
+@api.route("/models", methods=["PUT"])
 @authorization_required
 @admin_required
 def edit_model():
