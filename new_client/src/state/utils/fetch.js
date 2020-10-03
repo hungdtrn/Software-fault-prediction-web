@@ -1,30 +1,30 @@
 // import isomorphicFetch from "isomorphic-fetch";
 
-const BASEURL = "http://localhost:5000/api";
-export default ( url, method, body, token, is_form ) => {
+const BASEURL = "http://52.14.106.14:5000/api";
+export default (url, method, body, token, is_form) => {
     const options = {
         method,
-        headers: requestHeaders( token, is_form ),
-        body: method !== "GET" ? is_form ? body : JSON.stringify( body ) : null,
+        headers: requestHeaders(token, is_form),
+        body: method !== "GET" ? is_form ? body : JSON.stringify(body) : null,
     };
 
     url = BASEURL + url
-    return fetch( url, options )
-        .then( res => parseStatus( res.status, res.json() ) );
+    return fetch(url, options)
+        .then(res => parseStatus(res.status, res.json()));
 };
 
-function parseStatus( status, res ) {
-    return new Promise( ( resolve, reject ) => {
-        if ( status >= 200 && status < 300 ) {
-            res.then( response => resolve( response ) );
+function parseStatus(status, res) {
+    return new Promise((resolve, reject) => {
+        if (status >= 200 && status < 300) {
+            res.then(response => resolve(response));
         } else {
-            res.then( response => reject( { status, response } ) );
+            res.then(response => reject({ status, response }));
         }
-    } );
+    });
 }
 
 
-function requestHeaders( token, is_form ) {
+function requestHeaders(token, is_form) {
     let BASE_JSON = {}
     if (is_form) {
         BASE_JSON = {
