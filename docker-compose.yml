@@ -1,0 +1,83 @@
+version: "3"
+
+services:
+  mongodb:
+    restart: always
+    build: "./containers/mongo"
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_db:/bitnami:rw
+
+    environment:
+      - MONGODB_USERNAME=one
+      - MONGODB_PASSWORD=123qwe
+      - MONGODB_DATABASE=one
+ 
+  server:
+    restart: always
+    container_name: server
+    image: "python"
+    volumes:
+      - ./script/run-server.sh:./run-server.sh
+      - ./script/wait-for-server.sh:./wait-for-server.sh
+
+    expose:
+      - "5000"
+    depends_on:
+      - mongodb
+
+    command: ["./wait-for-server.sh", "mongodb:27017", "--", "./run-server.sh"]
+  
+  teacher-website:
+    restart: always
+    image: pierrezemb/gostatic
+    container_name: teacher-website
+    environment:
+      - VIRTUAL_HOST=docker.online2study.online
+      - VIRTUAL_PORT=8043
+      - VIRTUAL_NETWORK=nginx-proxy
+      - LETSENCRYPT_HOST=docker.online2study.online
+      - LETSENCRYPT_EMAIL=hung.tran@sioux.asia
+
+    volumes:
+      - "./app/build:/srv/http"
+    expose:
+      - "8043"
+
+    entrypoint: "/goStatic -port 8043 -fallback index.html"
+
+  cms-website:
+    restart: always
+    image: pierrezemb/gostatic
+    container_name: cms-website
+    environment:
+      - VIRTUAL_HOST=cms.docker.online2study.online
+      - VIRTUAL_PORT=8044
+      - VIRTUAL_NETWORK=nginx-proxy
+      - LETSENCRYPT_HOST=cms.docker.online2study.online
+      - LETSENCRYPT_EMAIL=hung.tran@sioux.asia
+
+    volumes:
+      - "./app/z-CMS/build:/srv/http"
+    expose:
+      - "8044"
+    entrypoint: "/goStatic -port 8044 -fallback index.html"
+
+
+volumes:
+  mongo_db:
+    driver: local-persist
+    driver_opts:
+      mountpoint: "/home/ubuntu/docker/volume/mongo/db"
+  mongo_backup:
+    driver: local-persist
+    driver_opts:
+      mountpoint: "/home/ubuntu/docker/volume/mongo/backup"
+  mongo_log:
+    driver: local-persist
+    driver_opts:
+      mountpoint: "/home/ubuntu/docker/volume/mongo/log"
+
+
