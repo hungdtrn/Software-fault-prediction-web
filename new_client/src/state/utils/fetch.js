@@ -1,6 +1,6 @@
 // import isomorphicFetch from "isomorphic-fetch";
 
-const BASEURL = "http://52.14.106.14:5000/api";
+const BASEURL = "http://18.191.231.224:5000/api";
 export default (url, method, body, token, is_form) => {
     const options = {
         method,
