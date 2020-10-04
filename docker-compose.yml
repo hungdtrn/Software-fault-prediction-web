@@ -38,8 +38,8 @@ services:
     container_name: website
     volumes:
       - "./app/new_client/build:/srv/http"
-    environment:
-      - API_URL=http://18.191.231.224:5000/api
+    env_file:
+      - "./env_files/client.env"
     ports:
       - "3000:3000"
 
