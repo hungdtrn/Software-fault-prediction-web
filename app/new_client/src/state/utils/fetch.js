@@ -1,5 +1,6 @@
 // import isomorphicFetch from "isomorphic-fetch";
-const BASEURL = process.env.API_URL;
+const BASEURL = process.env.REACT_APP_API_URL;
+console.log(BASEURL, process.env)
 export default (url, method, body, token, is_form) => {
     const options = {
         method,
