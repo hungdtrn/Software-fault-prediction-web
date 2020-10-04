@@ -19,52 +19,31 @@ services:
     restart: always
     container_name: server
     image: "python"
+    working_dir: /usr/src/app
     volumes:
-      - ./script/run-server.sh:./run-server.sh
-      - ./script/wait-for-server.sh:./wait-for-server.sh
+      - ./app/server:/usr/src/app
+      - ./script/run-server.sh:/usr/src/app/run-server.sh
+      - ./script/wait-for-server.sh:/usr/src/app/wait-for-server.sh
 
-    expose:
-      - "5000"
+    ports:
+      - "5000:5000"
     depends_on:
       - mongodb
 
     command: ["./wait-for-server.sh", "mongodb:27017", "--", "./run-server.sh"]
   
-  teacher-website:
+  website:
     restart: always
     image: pierrezemb/gostatic
-    container_name: teacher-website
-    environment:
-      - VIRTUAL_HOST=docker.online2study.online
-      - VIRTUAL_PORT=8043
-      - VIRTUAL_NETWORK=nginx-proxy
-      - LETSENCRYPT_HOST=docker.online2study.online
-      - LETSENCRYPT_EMAIL=hung.tran@sioux.asia
-
+    container_name: website
     volumes:
-      - "./app/build:/srv/http"
-    expose:
-      - "8043"
-
-    entrypoint: "/goStatic -port 8043 -fallback index.html"
-
-  cms-website:
-    restart: always
-    image: pierrezemb/gostatic
-    container_name: cms-website
+      - "./app/new_client/build:/srv/http"
     environment:
-      - VIRTUAL_HOST=cms.docker.online2study.online
-      - VIRTUAL_PORT=8044
-      - VIRTUAL_NETWORK=nginx-proxy
-      - LETSENCRYPT_HOST=cms.docker.online2study.online
-      - LETSENCRYPT_EMAIL=hung.tran@sioux.asia
+      - API_URL=http://18.191.231.224:5000/api
+    ports:
+      - "3000:3000"
 
-    volumes:
-      - "./app/z-CMS/build:/srv/http"
-    expose:
-      - "8044"
-    entrypoint: "/goStatic -port 8044 -fallback index.html"
-
+    entrypoint: "/goStatic -port 3000 -fallback index.html"
 
 volumes:
   mongo_db:
