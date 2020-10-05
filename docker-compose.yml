@@ -18,7 +18,7 @@ services:
   server:
     restart: always
     container_name: server
-    image: "python"
+    build: "./containers/server"
     working_dir: /usr/src/app
     volumes:
       - ./app/server:/usr/src/app
@@ -49,14 +49,14 @@ volumes:
   mongo_db:
     driver: local-persist
     driver_opts:
-      mountpoint: "/home/ubuntu/docker/volume/mongo/db"
+      mountpoint: "/home/ubuntu/flask_mongo/volume/mongo/db"
   mongo_backup:
     driver: local-persist
     driver_opts:
-      mountpoint: "/home/ubuntu/docker/volume/mongo/backup"
+      mountpoint: "/home/ubuntu/flask_mongo/volume/mongo/backup"
   mongo_log:
     driver: local-persist
     driver_opts:
-      mountpoint: "/home/ubuntu/docker/volume/mongo/log"
+      mountpoint: "/home/ubuntu/flask_mongo/volume/mongo/log"
 
 
