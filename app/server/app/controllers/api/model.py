@@ -50,6 +50,7 @@ def create_model():
 
         created_id = ml.create({
             "name": request_form["name"],
+            "description": request_form["description"],
             "url": model_name
         }).inserted_id
 
@@ -124,5 +125,19 @@ def find_model():
             "result": None
         })
 
+@api.route("/models/<ObjectId:id>", methods=["GET"])
+@authorization_required
+@admin_required
+def find_model_by_id(id):
+    try:
+        selected_model = ml.find_one({"_id": id})
+        return jsonify({
+            "msg": None,
+            "result": selected_model
+        }), 200
+    except Exception as e:
+        return jsonify({
+            "msg": str(e),
+            "result": None,
+        }), 400
 
-        
