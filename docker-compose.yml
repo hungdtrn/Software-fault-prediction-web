@@ -9,11 +9,6 @@ services:
       - "27017:27017"
     volumes:
       - mongo_db:/bitnami:rw
-
-    environment:
-      - MONGODB_USERNAME=one
-      - MONGODB_PASSWORD=123qwe
-      - MONGODB_DATABASE=one
  
   server:
     restart: always
