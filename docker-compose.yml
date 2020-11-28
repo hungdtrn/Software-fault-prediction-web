@@ -24,6 +24,8 @@ services:
       - ./app/server:/usr/src/app
       - ./script/run-server.sh:/usr/src/app/run-server.sh
       - ./script/wait-for-server.sh:/usr/src/app/wait-for-server.sh
+    env_file:
+      - "./env_files/server.env"
 
     ports:
       - "5000:5000"
