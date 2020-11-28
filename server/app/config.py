@@ -15,6 +15,7 @@ class Config:
     DATASET_PATH = os.path.join(os.getcwd(), "files", "dataset", "class.csv")
     CKJM_PATH = os.path.join(os.getcwd(), "files", "ckjm_ext.jar")
 
+
     @staticmethod
     def init_app(app):
         pass
