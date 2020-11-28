@@ -20,6 +20,7 @@ class Config:
         pass
 
 class DevelopmentConfig(Config):
+    print(os.environ.get("MONGO_URI"))
     DEBUG = True
     MONGO_URI = os.environ.get("MONGO_URI", os.environ.get("MONGO_URI"))
 
