@@ -133,3 +133,5 @@ dmypy.json
 *.pkl
 
 volume/*
+
+env_files/*

@@ -21,14 +21,14 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    MONGO_URI = os.environ.get("MONGO_URI", "mongodb://one:123qwe@mongodb:27017/one")
+    MONGO_URI = os.environ.get("MONGO_URI", os.environ.get("MONGO_URI"))
 
 class TestingConfig(Config):
     TESTING = True
-    MONGO_URI = os.environ.get("MONGO_URI", "mongodb://one:123qwe@mongodb:27017/one")
+    MONGO_URI = os.environ.get("MONGO_URI", os.environ.get("MONGO_URI"))
 
 class ProductionConfig(Config):
-    MONGO_URI = os.environ.get("MONGO_URI", "mongodb://one:123qwe@mongodb:27017/one")
+    MONGO_URI = os.environ.get("MONGO_URI", os.environ.get("MONGO_URI"))
 
 config = {
     'development': DevelopmentConfig,
