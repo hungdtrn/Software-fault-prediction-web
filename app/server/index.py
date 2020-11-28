@@ -10,8 +10,12 @@ app = create_app(mode)
 
 # create default user and admin
 if mode != 'production':
-    utils.create_users(username="admin", password="admin", role_name="admin")
-    utils.create_users(username="user", password="user", role_name="user")
+    utils.create_users(username="admin", email="admin@admin.com", 
+                       password="admin", firstname="admin", 
+                       lastname="admin", role_name="admin")
+    utils.create_users(username="user", email="user@user.com", 
+                       password="user", firstname="user", 
+                       lastname="user", role_name="user")
 
 
 @app.shell_context_processor

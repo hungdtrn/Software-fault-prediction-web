@@ -63,66 +63,13 @@ function* findById(action) {
     }
 }
 
-function* create(action) {
-    try {
-        yield put(userActions.createStart())
-
-        const { response, timeout } = yield race({
-            response: call(apis.create, action.payload.user),
-            timeout: delay(CONFIG.REQUEST_TIMEOUT)
-        })
-
-        if (timeout) {
-            yield put(userActions.createError("Timeout"))
-        } else if (response.result) {
-            yield put(userActions.createSuccess(response.result))
-        } else {
-            yield put(userActions.createError(response.msg))
-        }
-    } catch (err) {
-        if (err.hasOwnProperty("response")) {
-            yield put(userActions.createError(err.response.msg))
-        } else {
-            yield put(userActions.createError(err.toString()))
-        }
-    }
-}
-
-function* deleteById(action) {
-    try {
-        yield put(userActions.deleteStart())
-
-        const { response, timeout } = yield race({
-            response: call(apis.deleteById, action.payload.id),
-            timeout: delay(CONFIG.REQUEST_TIMEOUT)
-        })
-
-        if (timeout) {
-            yield put(userActions.deleteError("Timeout"))
-        } else if (response.result) {
-            yield put(userActions.deleteSuccess(action.payload.id))
-        } else {
-            yield put(userActions.deleteError(response.msg))
-        }
-    } catch (err) {
-        if (err.hasOwnProperty("response")) {
-            yield put(userActions.deleteError(err.response.msg))
-        } else {
-            yield put(userActions.deleteError(err.toString()))
-        }
-    }
-}
 
 export default function* userSage() {
     yield takeEvery(userTypes.FIND_ALL_REQUEST, findAll)
     yield takeEvery(userTypes.FIND_BY_ID_REQUEST, findById)
-    yield takeEvery(userTypes.CREATE_REQUEST, create)
-    yield takeEvery(userTypes.DELETE_REQUEST, deleteById)
 }
 
 export {
     findAll,
     findById,
-    create,
-    deleteById,
 }

@@ -13,6 +13,9 @@ def remove_sensitive_property(user):
 
     del user['hash']
     del user['salt']
+    
+def filter_admin(user):
+    pass
 
 class User(BaseModel):
     dbadapter = None
@@ -32,6 +35,12 @@ class User(BaseModel):
                 "email": {
                     "type": "string"
                 },
+                "firstname": {
+                    "type": "string"
+                },
+                "lastname": {
+                    "type": "string"  
+                },
                 "roleId": {
                     "type": "string"
                 },
@@ -42,7 +51,7 @@ class User(BaseModel):
                     "type": "string"
                 }
             },
-            "required": ["username", "salt", "hash", "roleId"],
+            "required": ["username", "email", "firstname", "lastname", "salt", "hash", "roleId"],
             "additionalProperties": False
         }
 
@@ -101,6 +110,9 @@ class User(BaseModel):
 
         user = {
             'username': data['username'],
+            "firstname": data['firstname'],
+            'lastname': data['lastname'],
+            'email': data['email'],
             'roleId': ObjectId(data['roleId']),
             'hash': hash_.decode(),
             'salt': salt.decode()

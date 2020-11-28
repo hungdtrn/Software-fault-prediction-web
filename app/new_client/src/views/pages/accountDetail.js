@@ -6,19 +6,14 @@ import { Form, Button, Input } from 'antd'
 import { FileTable, Spinner, Modal } from './components'
 import { userActions } from '../../state/duck/user';
 
-import { getToken, parseToken } from '../../state/utils/token'
-
-class AccountDetail extends React.Component {
+class UserDetail extends React.Component {
     constructor(props) {
         super(props)
     }
 
     componentDidMount() {
         const { match: { params } } = this.props;
-        // user = parseToken(getToken())
-        
-        let user = parseToken(getToken())
-        this.props.findByIdRequest(user._id)
+        this.props.findByIdRequest(params.userId)
     }
 
     clearError = () => {
@@ -84,4 +79,4 @@ const mapDispatchToProps = ( dispatch ) => ({
     clearFindError: () => dispatch(userActions.clearFindError()),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Form.create({ name: 'user_detail_form' })(AccountDetail))
+export default connect(mapStateToProps, mapDispatchToProps)(Form.create({ name: 'user_detail_form' })(UserDetail))

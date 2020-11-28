@@ -53,6 +53,9 @@ def register():
         createdId = user.create({
             "username": request_form["username"],
             "password": request_form["password"],
+            "firstname": request_form["firstname"],
+            "lastname": request_form["lastname"],
+            "email": request_form["email"],
             "roleId": str(user_role["_id"]),
         }).inserted_id
 

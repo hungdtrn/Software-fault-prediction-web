@@ -58,82 +58,8 @@ const findReducer = (state=initialFindState, action) => {
     }
 }
 
-const initialCreateState = {
-    loading: false,
-    createdUser: null,
-    error: null
-}
-
-const createReducer = (state=initialCreateState, action) => {
-    switch (action.type) {
-        case USERTYPES.CREATE_START:
-            return Object.assign({}, state, {
-                loading: true,
-                error: null,
-            })
-        case USERTYPES.CREATE_ERROR:
-            return Object.assign({}, state, {
-                loading: false,
-                createdUser: null,
-                error: action.payload.error
-            })
-        case USERTYPES.CREATE_SUCCESS:
-            return Object.assign({}, state, {
-                loading: false,
-                createdUser: action.payload.createdUser,
-                error: null
-            })
-        case USERTYPES.CLEAR_CREATE:
-            return Object.assign({}, state, {
-                loading: false,
-                createdUser: null,
-                error: null
-            })
-        default:
-            return state
-    }
-}
-
-const initialDeleteState = {
-    loading: false,
-    success: false,
-    error: null
-}
-
-const deleteReducer = (state=initialDeleteState, action) => {
-    switch (action.type) {
-        case USERTYPES.DELETE_START:
-            return Object.assign({}, state, {
-                loading: true,
-                error: null
-            })
-        case USERTYPES.DELETE_ERROR:
-            return Object.assign({}, state, {
-                loading: false,
-                success: false,
-                error: action.payload.error
-            })
-        case USERTYPES.DELETE_SUCCESS:
-            return Object.assign({}, state, {
-                loading: false,
-                error: null,
-                success: true,
-            })
-        case USERTYPES.CLEAR_DELETE:
-            return Object.assign({}, state, {
-                loading: false,
-                success: false,
-                error: null
-            })
-        default:
-            return state;
-    }
-}
-
 const reducer = combineReducers({
     find: findReducer,
-    create: createReducer,
-    delete: deleteReducer
 })
 
 export default reducer

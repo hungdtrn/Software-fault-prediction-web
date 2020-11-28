@@ -1,7 +1,7 @@
 import { Redirect } from 'react-router-dom'
 import { Login, Register, Home, Project, Algorithm, 
         AccountDetail, NoMatch, ProjectForm, ProjectDetail,
-        FileDetail, Model, ModelForm, ModelDetail, User } from '../views/pages';
+        FileDetail, Model, ModelForm, ModelDetail, UserDetail, User } from '../views/pages';
 import { withAuthentication } from '../views/enhancers'
 
 
@@ -59,6 +59,13 @@ const projectRoutes = [
     },
 ]
 
+const userManagementRoutes = [
+    {
+        path: "/users/:userId",
+        component: UserDetail,
+    },
+]
+
 const adminRoutes = [
     {
         path: "/models",
@@ -69,7 +76,7 @@ const adminRoutes = [
     },
     {
         path: "/users",
-        component: Model,
+        component: User,
         name: "Useres",
         icon: "qq",
         default: true
@@ -104,5 +111,6 @@ export {
     userRouters,
     projectRoutes,
     adminRoutes,
-    modelRoutes
+    modelRoutes,
+    userManagementRoutes
 }

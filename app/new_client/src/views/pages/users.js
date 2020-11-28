@@ -5,10 +5,10 @@ import { Row, Col, Button, Card, Typography } from 'antd'
 
 import { userActions } from '../../state/duck/user'
 import { Spinner, Modal } from './components'
-import { projectRoutes } from '../../routes/'
+import { userManagementRoutes } from '../../routes/'
 
 const { Title } = Typography
-class ProjectPage extends React.Component {
+class AllUserPage extends React.Component {
     constructor(props) {
         super(props)
     }
@@ -22,18 +22,18 @@ class ProjectPage extends React.Component {
     }
 
     render() {
-        const { loading, projects, error } = this.props
-
+        const { loading, users, error } = this.props
+        console.log(users)
         return (
             <div style={{ background: '#ECECEC', padding: '30px', 'wordWrap': 'normal'}}>
                 <Switch>
                     {
-                        projectRoutes.map(route => (
+                        userManagementRoutes.map(route => (
                             <Route key={ route.path } { ...route } />
                         ))
                     }
-                    <Route exact path="/projects">
-                        <Spinner visible={loading} title={ "Finding projects" } />
+                    <Route exact path="/users">
+                        <Spinner visible={loading} title={ "Finding useres" } />
                         <Modal 
                             title={ "Find error" }
                             visible={error != null} 
@@ -42,13 +42,13 @@ class ProjectPage extends React.Component {
                             handleCancel={this.clearError} 
                         />
                         <Row>                        
-                            <Col span={12}><h2>Projects</h2></Col>
-                            <Col span={12} align={"right"}><Button><Link to="/projects/create">New</Link></Button></Col>
+                            <Col span={12}><h2>Users</h2></Col>
+                            <Col span={12} align={"right"}><Button><Link to="/useres/create">New</Link></Button></Col>
                         </Row>
                         <Row>
                             {
-                                    (projects.length == 0) ? <div>No projects found</div> :
-                                    makeCardData(projects, 2).map((r, id) => {
+                                    (users.length == 0) ? <div>No users found</div> :
+                                    makeCardData(users, 2).map((r, id) => {
                                         return (
                                             <Row  key={id} gutter={16} style={{"marginBottom": "10px"}}>
                                                 {
@@ -56,25 +56,19 @@ class ProjectPage extends React.Component {
                                                         return (
                                                             <Col key={c._id} span={12}>
                                                                 {
-                                                                    (c.status == "done") ? (
-                                                                        <Link to={`/projects/${c._id}/files`}>
-                                                                            <Card hoverable title={c.name} bordered={false}>
+                                                                    <Link to={`/users/${c._id}`}>
+                                                                            <Card hoverable title={c.username} bordered={false}>
                                                                                 <p className="truncate">
-                                                                                    {c.description}
+                                                                                    <b>Email:</b> {c.email}
                                                                                 </p>
                                                                                 <p>
-                                                                                    {c.github}
+                                                                                    <b>First name:</b> {c.firstname}
+                                                                                </p>
+                                                                                <p>
+                                                                                    <b>Last name:</b> {c.lastname}
                                                                                 </p>
                                                                             </Card>
-                                                                        </Link>
-                                                                    ) : <Card hoverable title={`${c.name} (updating)`} bordered={false} loading={true}>
-                                                                            <p className="truncate">
-                                                                                {c.description}
-                                                                            </p>
-                                                                            <p>
-                                                                                {c.github}
-                                                                            </p>
-                                                                        </Card>
+                                                                    </Link>
                                                                 }
                                                             </Col>
                                                         )
@@ -95,22 +89,22 @@ class ProjectPage extends React.Component {
 
 const mapStateToProps = ( state, ownProps ) => {
     return {
-        loading: state.project.find.loading,
-        projects: state.project.find.projects,
-        error: state.project.find.error
+        loading: state.user.find.loading,
+        users: state.user.find.users,
+        error: state.user.find.error
     }
 }
 
 const mapDispatchToProps = ( dispatch ) => ( {
-    findAll: () => dispatch(projectActions.findAllRequest()),
-    clearError: () => dispatch(projectActions.clearFindError())
+    findAll: () => dispatch(userActions.findAllRequest()),
+    clearError: () => dispatch(userActions.clearFindError())
 } )
 
-const makeCardData = (projects, numRows) => {
+const makeCardData = (users, numRows) => {
     let cardRows = [];
-    let currentRow = [projects[0]];
-    for (let i = 1; i < projects.length; i++) {
-        currentRow.push(projects[i])
+    let currentRow = [users[0]];
+    for (let i = 1; i < users.length; i++) {
+        currentRow.push(users[i])
 
         if ((i+1) % numRows == 0) {
             cardRows.push(currentRow)
@@ -123,4 +117,4 @@ const makeCardData = (projects, numRows) => {
     return cardRows
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectPage)
+export default connect(mapStateToProps, mapDispatchToProps)(AllUserPage)

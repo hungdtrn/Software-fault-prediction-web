@@ -19,7 +19,7 @@ def find_or_create_role(role_name):
 
     return role
     
-def create_users(username, password, role_name):
+def create_users(username, email, password, firstname, lastname, role_name):
     user_model = User()
 
     role = find_or_create_role(role_name)
@@ -28,6 +28,9 @@ def create_users(username, password, role_name):
     if user is None:
         userId = user_model.create({
             "username": username,
+            "email": email,
+            "firstname": firstname,
+            "lastname": lastname,
             "password": password,
             "roleId": str(role["_id"])    
         }).inserted_id

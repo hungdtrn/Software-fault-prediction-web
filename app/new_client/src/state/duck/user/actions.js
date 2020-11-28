@@ -63,45 +63,6 @@ const clearFindError = ( ) => ({
     type: types.CLEAR_FIND_ERROR
 })
 
-const createError = ( error ) => ({
-    type: types.CREATE_ERROR,
-    payload: {
-        error
-    }
-})
-
-const clearCreate = ( ) => ({
-    type: types.CLEAR_CREATE
-})
-
-const deleteRequest = ( id ) => ({
-    type: types.DELETE_REQUEST,
-    payload: {
-        id
-    }
-})
-
-const deleteStart = ( ) => ({
-    type: types.DELETE_START
-})
-
-const deleteSuccess = ( id ) => ({
-    type: types.DELETE_SUCCESS,
-    payload: {
-        id
-    }
-})
-
-const deleteError = ( error ) => ({
-    type: types.DELETE_ERROR,
-    payload: {
-        error
-    }
-})
-
-const clearDelete = ( ) => ({
-    type: types.CLEAR_DELETE,
-})
 
 
 export {
@@ -117,13 +78,4 @@ export {
     findByIdError,
     
     clearFindError,
-
-    createError,
-    clearCreate,
-
-    deleteRequest,
-    deleteStart,
-    deleteSuccess,
-    deleteError,
-    clearDelete,
 }

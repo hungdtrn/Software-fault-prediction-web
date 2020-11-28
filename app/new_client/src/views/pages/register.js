@@ -24,6 +24,8 @@ class RegisterForm extends React.Component {
                 this.props.handleSubmit({
                     username: values.username,
                     email: values.email,
+                    firstname: values.firstname,
+                    lastname: values.lastname,
                     password: values.password
             })
             }
@@ -106,6 +108,26 @@ class RegisterForm extends React.Component {
                                     {
                                         required: true,
                                         message: 'Please input your username'
+                                    }
+                                ]
+                            })(<Input />)}
+                        </Form.Item>
+                        <Form.Item label="First name">
+                            {getFieldDecorator('firstname', {
+                                rules: [
+                                    {
+                                        required: true,
+                                        message: 'Please input your first name'
+                                    }
+                                ]
+                            })(<Input />)}
+                        </Form.Item>
+                        <Form.Item label="Last name">
+                            {getFieldDecorator('lastname', {
+                                rules: [
+                                    {
+                                        required: true,
+                                        message: 'Please input your last name'
                                     }
                                 ]
                             })(<Input />)}
