@@ -57,7 +57,6 @@ Clone the project
 ```
 git clone https://github.com/hungdtrn/flask_mongo.git
 cd flask_mongo
-git checkout refactor
 ```
 
 Run the docker compose
