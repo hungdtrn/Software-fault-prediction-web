@@ -47,7 +47,9 @@ This project is for building a website that support storing program files, extra
 ## Prerequisite
 
 Install docker. See [here](https://docs.docker.com/engine/install/ubuntu/)
+
 Install docker-compose. See [here](https://docs.docker.com/compose/install/)
+
 Install local-persist volume engine. See [here](https://github.com/MatchbookLab/local-persist)
 
 ## How to run
