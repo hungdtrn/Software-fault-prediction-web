@@ -15,20 +15,21 @@ class Config:
     DATASET_PATH = os.path.join(os.getcwd(), "files", "dataset", "class.csv")
     CKJM_PATH = os.path.join(os.getcwd(), "files", "ckjm_ext.jar")
 
+
     @staticmethod
     def init_app(app):
         pass
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    MONGO_URI = os.environ.get("MONGO_URI", "mongodb://localhost:27017/devlearnflask")
+    MONGO_URI = os.environ.get("MONGO_URI", "mongodb://one:123qwe@mongodb:27017/one")
 
 class TestingConfig(Config):
     TESTING = True
-    MONGO_URI = os.environ.get("MONGO_URI", "mongodb://localhost:27017/testlearnflask")
+    MONGO_URI = os.environ.get("MONGO_URI", "mongodb://one:123qwe@mongodb:27017/one")
 
 class ProductionConfig(Config):
-    MONGO_URI = os.environ.get("MONGO_URI", "mongodb://localhost:27017/prolearnflask")
+    MONGO_URI = os.environ.get("MONGO_URI", "mongodb://one:123qwe@mongodb:27017/one")
 
 config = {
     'development': DevelopmentConfig,

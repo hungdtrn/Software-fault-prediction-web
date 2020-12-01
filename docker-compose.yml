@@ -1,0 +1,59 @@
+version: "3"
+
+services:
+  mongodb:
+    restart: always
+    build: "./containers/mongo"
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_db:/bitnami:rw
+ 
+  server:
+    restart: always
+    container_name: server
+    build: "./containers/server"
+    working_dir: /usr/src/app
+    volumes:
+      - ./app/server:/usr/src/app
+      - ./script/run-server.sh:/usr/src/app/run-server.sh
+      - ./script/wait-for-server.sh:/usr/src/app/wait-for-server.sh
+    env_file:
+      - "./env_files/server.env"
+
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongodb
+
+    command: ["./wait-for-server.sh", "mongodb:27017", "--", "./run-server.sh"]
+  
+  website:
+    restart: always
+    image: pierrezemb/gostatic
+    container_name: website
+    volumes:
+      - "./app/new_client/build:/srv/http"
+    env_file:
+      - "./env_files/client.env"
+    ports:
+      - "3000:3000"
+
+    entrypoint: "/goStatic -port 3000 -fallback index.html"
+
+volumes:
+  mongo_db:
+    driver: local-persist
+    driver_opts:
+      mountpoint: "/home/ubuntu/flask_mongo/volume/mongo/db"
+  mongo_backup:
+    driver: local-persist
+    driver_opts:
+      mountpoint: "/home/ubuntu/flask_mongo/volume/mongo/backup"
+  mongo_log:
+    driver: local-persist
+    driver_opts:
+      mountpoint: "/home/ubuntu/flask_mongo/volume/mongo/log"
+
+

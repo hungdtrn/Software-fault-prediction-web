@@ -1,9 +1,11 @@
 import os
 
 from app import create_app, mongo
+
 import utils
 
 mode = os.getenv('FLASK_CONFIG') or 'default'
+
 app = create_app(mode)
 
 # create default user and admin
