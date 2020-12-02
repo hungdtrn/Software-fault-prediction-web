@@ -1,0 +1,63 @@
+
+Result SVM for none-sampling
+
+ save 
+Correctly Classified Instances        5009               97.149  %
+
+Incorrectly Classified Instances       147                2.851  %
+
+Kappa statistic                          0.2439
+
+Mean absolute error                      0.0285
+
+Root mean squared error                  0.1689
+
+Relative absolute error                 48.9572 %
+
+Root relative squared error             99.1933 %
+
+Total Number of Instances             5156     
+
+=== Detailed Accuracy By Class ===
+
+               
+TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 
+0.996    0.838    0.975      0.996    0.985      0.297    0.579     0.975     FALSE
+
+0.162    0.004    0.581      0.162    0.254      0.297    0.579     0.119     TRUE
+
+Weighted Avg.    0.971    0.813    0.963      0.971    0.964      0.297    0.579     0.949     
+
+
+
+
+Result SVM for evolution-sampling
+
+
+Correctly Classified Instances        9559               92.6978 %
+
+Incorrectly Classified Instances       753                7.3022 %
+
+Kappa statistic                          0.2723
+
+Mean absolute error                      0.073 
+Root mean squared error                  0.2702
+
+Relative absolute error                125.3905 %
+
+Root relative squared error            158.7472 %
+
+Total Number of Instances            10312     
+
+=== Detailed Accuracy By Class ===
+
+                 
+TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 
+0.939    0.468    0.985      0.939    0.961      0.305    0.736     0.984     FALSE
+                
+ 0.532    0.061    0.212      0.532    0.303      0.305    0.736     0.127     TRUE
+
+Weighted Avg.    0.927    0.455    0.962      0.927    0.942      0.305    0.736     0.958     
+

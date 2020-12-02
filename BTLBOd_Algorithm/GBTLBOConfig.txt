@@ -1,0 +1,2 @@
+Mutation Rate: 0.1
+Crossover Rate: 0.7

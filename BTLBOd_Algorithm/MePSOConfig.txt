@@ -1,0 +1,4 @@
+Weight Init: 1.05
+Weight Final: 0.5
+c1: 1.49445
+c2: 1.49445

@@ -1,0 +1,5 @@
+Population size: 50
+Num Iterations: 500
+Min: -4
+Max: 4
+Vmax Factor: 0.05

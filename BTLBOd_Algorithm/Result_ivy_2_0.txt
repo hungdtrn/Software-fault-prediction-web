@@ -1,0 +1,401 @@
+=========Social Learning PSO based Sampling========
+========ITER: 1=======
+
+Result SVM
+
+Correctly Classified Instances          54               50.9434 %
+Incorrectly Classified Instances        52               49.0566 %
+Kappa statistic                          0.06  
+Mean absolute error                      0.4906
+Root mean squared error                  0.7004
+Relative absolute error                 98.1132 %
+Root relative squared error            140.0808 %
+Total Number of Instances              106     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.667    0.511    0.143      0.667    0.235      0.099    0.578     0.133     1
+                 0.489    0.333    0.920      0.489    0.639      0.099    0.578     0.903     0
+Weighted Avg.    0.509    0.353    0.832      0.509    0.593      0.099    0.578     0.816     
+
+
+
+Result RF
+
+Correctly Classified Instances          74               69.8113 %
+Incorrectly Classified Instances        32               30.1887 %
+Kappa statistic                          0.197 
+Mean absolute error                      0.3284
+Root mean squared error                  0.4197
+Relative absolute error                 65.6792 %
+Root relative squared error             83.9346 %
+Total Number of Instances              106     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.667    0.298    0.222      0.667    0.333      0.247    0.744     0.418     1
+                 0.702    0.333    0.943      0.702    0.805      0.247    0.744     0.952     0
+Weighted Avg.    0.698    0.329    0.861      0.698    0.751      0.247    0.744     0.892     
+
+
+
+Result MLP
+
+Correctly Classified Instances          68               64.1509 %
+Incorrectly Classified Instances        38               35.8491 %
+Kappa statistic                          0.0079
+Mean absolute error                      0.338 
+Root mean squared error                  0.5221
+Relative absolute error                 67.597  %
+Root relative squared error            104.4265 %
+Total Number of Instances              106     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.333    0.319    0.118      0.333    0.174      0.010    0.532     0.292     1
+                 0.681    0.667    0.889      0.681    0.771      0.010    0.532     0.894     0
+Weighted Avg.    0.642    0.627    0.802      0.642    0.703      0.010    0.532     0.826     
+
+
+
+Result BayesNetwork
+
+Correctly Classified Instances          79               74.5283 %
+Incorrectly Classified Instances        27               25.4717 %
+Kappa statistic                          0.2805
+Mean absolute error                      0.2666
+Root mean squared error                  0.482 
+Relative absolute error                 53.3256 %
+Root relative squared error             96.3924 %
+Total Number of Instances              106     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.750    0.255    0.273      0.750    0.400      0.339    0.757     0.330     1
+                 0.745    0.250    0.959      0.745    0.838      0.339    0.757     0.958     0
+Weighted Avg.    0.745    0.251    0.881      0.745    0.789      0.339    0.757     0.887     
+
+
+
+Result KNN
+
+Correctly Classified Instances          70               66.0377 %
+Incorrectly Classified Instances        36               33.9623 %
+Kappa statistic                          0.0205
+Mean absolute error                      0.3452
+Root mean squared error                  0.5729
+Relative absolute error                 69.0306 %
+Root relative squared error            114.579  %
+Total Number of Instances              106     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.333    0.298    0.125      0.333    0.182      0.024    0.518     0.117     1
+                 0.702    0.667    0.892      0.702    0.786      0.024    0.518     0.890     0
+Weighted Avg.    0.660    0.625    0.805      0.660    0.717      0.024    0.518     0.803     
+
+========ITER: 2=======
+
+Result SVM
+
+Correctly Classified Instances          85               80.1887 %
+Incorrectly Classified Instances        21               19.8113 %
+Kappa statistic                          0.2134
+Mean absolute error                      0.1981
+Root mean squared error                  0.4451
+Relative absolute error                 39.6226 %
+Root relative squared error             89.0198 %
+Total Number of Instances              106     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.417    0.149    0.263      0.417    0.323      0.221    0.634     0.176     1
+                 0.851    0.583    0.920      0.851    0.884      0.221    0.634     0.915     0
+Weighted Avg.    0.802    0.534    0.845      0.802    0.820      0.221    0.634     0.831     
+
+
+
+Result RF
+
+Correctly Classified Instances          81               76.4151 %
+Incorrectly Classified Instances        25               23.5849 %
+Kappa statistic                          0.2023
+Mean absolute error                      0.3348
+Root mean squared error                  0.4103
+Relative absolute error                 66.9623 %
+Root relative squared error             82.0559 %
+Total Number of Instances              106     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.500    0.202    0.240      0.500    0.324      0.222    0.757     0.258     1
+                 0.798    0.500    0.926      0.798    0.857      0.222    0.757     0.960     0
+Weighted Avg.    0.764    0.466    0.848      0.764    0.797      0.222    0.757     0.880     
+
+
+
+Result MLP
+
+Correctly Classified Instances          71               66.9811 %
+Incorrectly Classified Instances        35               33.0189 %
+Kappa statistic                          0.1384
+Mean absolute error                      0.3695
+Root mean squared error                  0.522 
+Relative absolute error                 73.8981 %
+Root relative squared error            104.408  %
+Total Number of Instances              106     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.583    0.319    0.189      0.583    0.286      0.176    0.613     0.211     1
+                 0.681    0.417    0.928      0.681    0.785      0.176    0.613     0.905     0
+Weighted Avg.    0.670    0.406    0.844      0.670    0.729      0.176    0.613     0.826     
+
+
+
+Result BayesNetwork
+
+Correctly Classified Instances          83               78.3019 %
+Incorrectly Classified Instances        23               21.6981 %
+Kappa statistic                          0.228 
+Mean absolute error                      0.2365
+Root mean squared error                  0.449 
+Relative absolute error                 47.2921 %
+Root relative squared error             89.7931 %
+Total Number of Instances              106     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.500    0.181    0.261      0.500    0.343      0.245    0.741     0.241     1
+                 0.819    0.500    0.928      0.819    0.870      0.245    0.741     0.957     0
+Weighted Avg.    0.783    0.464    0.852      0.783    0.810      0.245    0.741     0.876     
+
+
+
+Result KNN
+
+Correctly Classified Instances          66               62.2642 %
+Incorrectly Classified Instances        40               37.7358 %
+Kappa statistic                          0.1009
+Mean absolute error                      0.3816
+Root mean squared error                  0.6039
+Relative absolute error                 76.3175 %
+Root relative squared error            120.7714 %
+Total Number of Instances              106     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.583    0.372    0.167      0.583    0.259      0.137    0.605     0.144     1
+                 0.628    0.417    0.922      0.628    0.747      0.137    0.605     0.909     0
+Weighted Avg.    0.623    0.412    0.836      0.623    0.692      0.137    0.605     0.822     
+
+========ITER: 3=======
+
+Result SVM
+
+Correctly Classified Instances          61               57.5472 %
+Incorrectly Classified Instances        45               42.4528 %
+Kappa statistic                          0.0983
+Mean absolute error                      0.4245
+Root mean squared error                  0.6516
+Relative absolute error                 84.9057 %
+Root relative squared error            130.3117 %
+Total Number of Instances              106     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.667    0.436    0.163      0.667    0.262      0.146    0.615     0.147     1
+                 0.564    0.333    0.930      0.564    0.702      0.146    0.615     0.911     0
+Weighted Avg.    0.575    0.345    0.843      0.575    0.652      0.146    0.615     0.825     
+
+
+
+Result RF
+
+Correctly Classified Instances          80               75.4717 %
+Incorrectly Classified Instances        26               24.5283 %
+Kappa statistic                          0.1904
+Mean absolute error                      0.3235
+Root mean squared error                  0.4137
+Relative absolute error                 64.6981 %
+Root relative squared error             82.7323 %
+Total Number of Instances              106     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.500    0.213    0.231      0.500    0.316      0.212    0.703     0.345     1
+                 0.787    0.500    0.925      0.787    0.851      0.212    0.703     0.947     0
+Weighted Avg.    0.755    0.467    0.846      0.755    0.790      0.212    0.703     0.879     
+
+
+
+Result MLP
+
+Correctly Classified Instances          71               66.9811 %
+Incorrectly Classified Instances        35               33.0189 %
+Kappa statistic                          0.1384
+Mean absolute error                      0.3191
+Root mean squared error                  0.5082
+Relative absolute error                 63.8121 %
+Root relative squared error            101.6475 %
+Total Number of Instances              106     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.583    0.319    0.189      0.583    0.286      0.176    0.767     0.502     1
+                 0.681    0.417    0.928      0.681    0.785      0.176    0.767     0.956     0
+Weighted Avg.    0.670    0.406    0.844      0.670    0.729      0.176    0.767     0.905     
+
+
+
+Result BayesNetwork
+
+Correctly Classified Instances          76               71.6981 %
+Incorrectly Classified Instances        30               28.3019 %
+Kappa statistic                          0.1838
+Mean absolute error                      0.2891
+Root mean squared error                  0.5082
+Relative absolute error                 57.8116 %
+Root relative squared error            101.6316 %
+Total Number of Instances              106     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.583    0.266    0.219      0.583    0.318      0.219    0.729     0.229     1
+                 0.734    0.417    0.932      0.734    0.821      0.219    0.729     0.954     0
+Weighted Avg.    0.717    0.400    0.852      0.717    0.764      0.219    0.729     0.872     
+
+
+
+Result KNN
+
+Correctly Classified Instances          64               60.3774 %
+Incorrectly Classified Instances        42               39.6226 %
+Kappa statistic                         -0.0146
+Mean absolute error                      0.3998
+Root mean squared error                  0.6188
+Relative absolute error                 79.961  %
+Root relative squared error            123.7515 %
+Total Number of Instances              106     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.333    0.362    0.105      0.333    0.160      -0.019   0.486     0.111     1
+                 0.638    0.667    0.882      0.638    0.741      -0.019   0.486     0.884     0
+Weighted Avg.    0.604    0.632    0.794      0.604    0.675      -0.019   0.486     0.796     
+
+========ITER: 4=======
+
+Result SVM
+
+Correctly Classified Instances          90               84.9057 %
+Incorrectly Classified Instances        16               15.0943 %
+Kappa statistic                          0.3437
+Mean absolute error                      0.1509
+Root mean squared error                  0.3885
+Relative absolute error                 30.1887 %
+Root relative squared error             77.7029 %
+Total Number of Instances              106     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.500    0.106    0.375      0.500    0.429      0.348    0.697     0.244     1
+                 0.894    0.500    0.933      0.894    0.913      0.348    0.697     0.928     0
+Weighted Avg.    0.849    0.455    0.870      0.849    0.858      0.348    0.697     0.851     
+
+
+
+Result RF
+
+Correctly Classified Instances          87               82.0755 %
+Incorrectly Classified Instances        19               17.9245 %
+Kappa statistic                          0.2883
+Mean absolute error                      0.2967
+Root mean squared error                  0.3825
+Relative absolute error                 59.3396 %
+Root relative squared error             76.5095 %
+Total Number of Instances              106     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.500    0.138    0.316      0.500    0.387      0.299    0.706     0.396     1
+                 0.862    0.500    0.931      0.862    0.895      0.299    0.706     0.947     0
+Weighted Avg.    0.821    0.459    0.861      0.821    0.838      0.299    0.706     0.884     
+
+
+
+Result MLP
+
+Correctly Classified Instances          74               69.8113 %
+Incorrectly Classified Instances        32               30.1887 %
+Kappa statistic                          0.1645
+Mean absolute error                      0.3171
+Root mean squared error                  0.5036
+Relative absolute error                 63.4294 %
+Root relative squared error            100.7132 %
+Total Number of Instances              106     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.583    0.287    0.206      0.583    0.304      0.201    0.745     0.408     1
+                 0.713    0.417    0.931      0.713    0.807      0.201    0.745     0.958     0
+Weighted Avg.    0.698    0.402    0.849      0.698    0.750      0.201    0.745     0.896     
+
+
+
+Result BayesNetwork
+
+Correctly Classified Instances          88               83.0189 %
+Incorrectly Classified Instances        18               16.9811 %
+Kappa statistic                          0.2116
+Mean absolute error                      0.2072
+Root mean squared error                  0.3977
+Relative absolute error                 41.4498 %
+Root relative squared error             79.5343 %
+Total Number of Instances              106     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.333    0.106    0.286      0.333    0.308      0.212    0.697     0.386     1
+                 0.894    0.667    0.913      0.894    0.903      0.212    0.697     0.923     0
+Weighted Avg.    0.830    0.603    0.842      0.830    0.836      0.212    0.697     0.863     
+
+
+
+Result KNN
+
+Correctly Classified Instances          70               66.0377 %
+Incorrectly Classified Instances        36               33.9623 %
+Kappa statistic                          0.0601
+Mean absolute error                      0.3452
+Root mean squared error                  0.5729
+Relative absolute error                 69.0306 %
+Root relative squared error            114.579  %
+Total Number of Instances              106     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.417    0.309    0.147      0.417    0.217      0.073    0.554     0.127     1
+                 0.691    0.583    0.903      0.691    0.783      0.073    0.554     0.898     0
+Weighted Avg.    0.660    0.552    0.817      0.660    0.719      0.073    0.554     0.811     
+
