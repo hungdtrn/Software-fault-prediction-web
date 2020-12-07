@@ -6,6 +6,7 @@ import { Row, Col, Button, Form, Input } from 'antd'
 import { projectActions } from '../../state/duck/project'
 import { Spinner, Modal } from './components'
 
+const { TextArea } = Input;
 class ProjectForm extends React.Component {
     constructor(props) {
         super(props)
@@ -70,7 +71,7 @@ class ProjectForm extends React.Component {
                     )}
                     </Form.Item>
                     <Form.Item label="Description">
-                        {getFieldDecorator('description')(<Input />)}
+                        {getFieldDecorator('description')(<TextArea rows={4} />)}
                     </Form.Item>
                     <Form.Item label="Github link">
                         {getFieldDecorator("github", {
