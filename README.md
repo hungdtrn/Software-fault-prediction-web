@@ -6,6 +6,7 @@
   
 
 This project is for building a website that support storing program files, extracting software metrics and prediction software error.
+The project includes a server system (written by flask python), a web-based client (react.js). 
 
   
 ## Project Structure
