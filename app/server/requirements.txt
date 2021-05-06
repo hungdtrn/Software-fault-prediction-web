@@ -8,7 +8,7 @@ Click==7.0
 cryptography==2.8
 Flask==1.1.1
 Flask-Bcrypt==0.7.1
-Flask-Cors==3.0.8
+Flask-Cors==3.0.9
 Flask-JWT-Extended==3.24.1
 Flask-PyMongo==2.3.0
 gitdb2==2.0.6
