@@ -23,7 +23,7 @@ lazy-object-proxy==1.4.3
 MarkupSafe==1.1.1
 marshmallow==3.3.0
 mccabe==0.6.1
-numpy==1.18.0
+numpy==1.22.0
 pandas==0.25.3
 pycparser==2.19
 PyJWT==1.7.1
